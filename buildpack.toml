@@ -37,9 +37,9 @@ stacks  = [ "io.buildpacks.stacks.bionic" ]
 [[metadata.dependencies]]
 id      = "google-stackdriver-debugger-nodejs"
 name    = "Google Stackdriver Debugger NodeJS Agent"
-version = "0"
-uri     = "placeholder"
-sha256  = "placeholder"
+version = "4.2.2"
+uri     = "https://registry.npmjs.org/@google-cloud/debug-agent/-/debug-agent-4.2.2.tgz"
+sha256  = "a98f8670e27b65e53b69e851444abd2a1dc1c6890b34325f0bcd4cf8d523d87c"
 stacks  = [ "io.buildpacks.stacks.bionic" ]
 
   [[metadata.dependencies.licenses]]
