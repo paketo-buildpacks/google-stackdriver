@@ -22,17 +22,53 @@ version = "{{.Version}}"
 [[stacks]]
 id = "io.buildpacks.stacks.bionic"
 
-# [[metadata.dependencies]]
-# id      = ""
-# name    = ""
-# version = ""
-# uri     = ""
-# sha256  = ""
-# stacks  = [ "io.buildpacks.stacks.bionic" ]
+[[metadata.dependencies]]
+id      = "google-stackdriver-debugger-java"
+name    = "Google Stackdriver Debugger Java Agent"
+version = "0"
+uri     = "placeholder"
+sha256  = "placeholder"
+stacks  = [ "io.buildpacks.stacks.bionic" ]
 
-#   [[metadata.dependencies.licenses]]
-#   type = "<TYPE>"
-#   uri  = "<URI>"
+  [[metadata.dependencies.licenses]]
+  type = "Apache-2.0"
+  uri  = "https://github.com/GoogleCloudPlatform/cloud-debug-java/blob/master/LICENSE"
+
+[[metadata.dependencies]]
+id      = "google-stackdriver-debugger-nodejs"
+name    = "Google Stackdriver Debugger NodeJS Agent"
+version = "0"
+uri     = "placeholder"
+sha256  = "placeholder"
+stacks  = [ "io.buildpacks.stacks.bionic" ]
+
+  [[metadata.dependencies.licenses]]
+  type = "Apache-2.0"
+  uri  = "https://github.com/googleapis/cloud-debug-nodejs/blob/master/LICENSE"
+
+[[metadata.dependencies]]
+id      = "google-stackdriver-profiler-java"
+name    = "Google Stackdriver Profiler Java Agent"
+version = "0"
+uri     = "placeholder"
+sha256  = "placeholder"
+stacks  = [ "io.buildpacks.stacks.bionic" ]
+
+  [[metadata.dependencies.licenses]]
+  type = "Apache-2.0"
+  uri  = "https://github.com/GoogleCloudPlatform/cloud-profiler-java/blob/master/LICENSE"
+
+[[metadata.dependencies]]
+id      = "google-stackdriver-profiler-nodejs"
+name    = "Google Stackdriver Profiler NodeJS Agent"
+version = "0"
+uri     = "placeholder"
+sha256  = "placeholder"
+stacks  = [ "io.buildpacks.stacks.bionic" ]
+
+  [[metadata.dependencies.licenses]]
+  type = "Apache-2.0"
+  uri  = "https://github.com/googleapis/cloud-debug-nodejs/blob/master/LICENSE"
 
 [metadata]
 pre-package   = "scripts/build.sh"
