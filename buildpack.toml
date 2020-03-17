@@ -25,9 +25,9 @@ id = "io.buildpacks.stacks.bionic"
 [[metadata.dependencies]]
 id      = "google-stackdriver-debugger-java"
 name    = "Google Stackdriver Debugger Java Agent"
-version = "0"
-uri     = "placeholder"
-sha256  = "placeholder"
+version = "2.24"
+uri     = "https://github.com/GoogleCloudPlatform/cloud-debug-java/releases/download/v2.24/compute-java_debian-wheezy_cdbg_java_agent_gce.tar"
+sha256  = "678fb82501bf3ee358168063220d95b432199ba2bfe3018db6eb3eaf6be8ff50"
 stacks  = [ "io.buildpacks.stacks.bionic" ]
 
   [[metadata.dependencies.licenses]]
