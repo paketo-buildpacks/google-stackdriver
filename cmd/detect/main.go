@@ -16,5 +16,11 @@
 
 package main
 
+import (
+	"github.com/paketo-buildpacks/google-stackdriver/stackdriver"
+	"github.com/paketo-buildpacks/libpak"
+)
+
 func main() {
+	libpak.Detect(stackdriver.Detect{})
 }

@@ -16,7 +16,7 @@ api = "0.2"
 
 [buildpack]
 id      = "paketo-buildpacks/google-stackdriver"
-name    = "Paketo <NAME> Buildpack"
+name    = "Paketo Google Stackdriver Buildpack"
 version = "{{.Version}}"
 
 [[stacks]]
@@ -78,5 +78,6 @@ include-files = [
   "README.md",
   "bin/build",
   "bin/detect",
+  "bin/google-application-credentials",
   "buildpack.toml",
 ]

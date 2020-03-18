@@ -17,13 +17,37 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
-	"github.com/paketo-buildpacks/google-stackdriver/stackdriver"
-	"github.com/paketo-buildpacks/libpak"
-	"github.com/paketo-buildpacks/libpak/bard"
+	"github.com/buildpacks/libcnb"
+	"github.com/paketo-buildpacks/google-stackdriver/credentials"
+	"github.com/paketo-buildpacks/libpak/sherpa"
 )
 
 func main() {
-	libpak.Build(stackdriver.Build{Logger: bard.NewLogger(os.Stdout)})
+	sherpa.Execute(func() error {
+		var (
+			err error
+			c   credentials.Credentials
+			ok  bool
+		)
+
+		if c.BindingsPath, ok = os.LookupEnv("CNB_BINDINGS"); !ok {
+			return nil
+		}
+
+		c.Bindings, err = libcnb.NewBindingsFromEnvironment()
+		if err != nil {
+			return fmt.Errorf("unable to read bindings from environment\n%w", err)
+		}
+
+		e, err := c.Execute()
+		if err != nil {
+			return err
+		}
+
+		fmt.Println(e)
+		return nil
+	})
 }
