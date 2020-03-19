@@ -2,7 +2,7 @@
 The Paketo Google Stackdriver Buildpack is a Cloud Native Buildpack that contributes Stackdriver agents and configures them to connect to the service.
 
 ## Behavior
-This buildpack will participate any of the following conditions are met
+This buildpack will participate if any of the following conditions are met
 
 *
 
