@@ -60,7 +60,7 @@ func testDetect(t *testing.T, context spec.G, it spec.S) {
 					},
 					Requires: []libcnb.BuildPlanRequire{
 						{Name: "google-stackdriver-debugger-nodejs"},
-						{Name: "node"},
+						{Name: "node", Metadata: map[string]interface{}{"build": true}},
 					},
 				},
 			},
@@ -90,7 +90,7 @@ func testDetect(t *testing.T, context spec.G, it spec.S) {
 					},
 					Requires: []libcnb.BuildPlanRequire{
 						{Name: "google-stackdriver-profiler-nodejs"},
-						{Name: "node"},
+						{Name: "node", Metadata: map[string]interface{}{"build": true}},
 					},
 				},
 			},
