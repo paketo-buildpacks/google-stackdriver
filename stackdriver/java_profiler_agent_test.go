@@ -64,7 +64,7 @@ func testJavaProfilerAgent(t *testing.T, context spec.G, it spec.S) {
 		Expect(layer.Launch).To(BeTrue())
 
 		Expect(filepath.Join(layer.Path, "profiler_java_agent.so")).To(BeARegularFile())
-		Expect(layer.Profile["profiler"]).To(Equal(fmt.Sprintf(`if [[ -z "${BPL_GOOGLE_STACKDRIVER_MODULE+x}" ]]; then
+		Expect(layer.Profile["java-profiler.sh"]).To(Equal(fmt.Sprintf(`if [[ -z "${BPL_GOOGLE_STACKDRIVER_MODULE+x}" ]]; then
     MODULE="default-module"
 else
 	MODULE=${BPL_GOOGLE_STACKDRIVER_MODULE}

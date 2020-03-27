@@ -22,9 +22,11 @@ import (
 	"path/filepath"
 
 	"github.com/buildpacks/libcnb"
+	_ "github.com/paketo-buildpacks/google-stackdriver/stackdriver/statik"
 	"github.com/paketo-buildpacks/libpak"
 	"github.com/paketo-buildpacks/libpak/bard"
 	"github.com/paketo-buildpacks/libpak/crush"
+	"github.com/paketo-buildpacks/libpak/sherpa"
 )
 
 type JavaProfilerAgent struct {
@@ -36,6 +38,8 @@ func NewJavaProfilerAgent(dependency libpak.BuildpackDependency, cache libpak.De
 	return JavaProfilerAgent{LayerContributor: libpak.NewDependencyLayerContributor(dependency, cache, plan)}
 }
 
+//go:generate statik -src . -include *.sh
+
 func (j JavaProfilerAgent) Contribute(layer libcnb.Layer) (libcnb.Layer, error) {
 	j.Logger.Body(bard.FormatUserConfig("BPL_GOOGLE_STACKDRIVER_MODULE", "the name of the application", "default-module"))
 	j.Logger.Body(bard.FormatUserConfig("BPL_GOOGLE_STACKDRIVER_VERSION", "the version of the application", "<EMPTY>"))
@@ -43,35 +47,20 @@ func (j JavaProfilerAgent) Contribute(layer libcnb.Layer) (libcnb.Layer, error) 
 	j.LayerContributor.Logger = j.Logger
 
 	return j.LayerContributor.Contribute(layer, func(artifact *os.File) (libcnb.Layer, error) {
-		j.Logger.Body("Expanding to %s", layer.Path)
+		j.Logger.Bodyf("Expanding to %s", layer.Path)
 
 		if err := crush.ExtractTarGz(artifact, layer.Path, 0); err != nil {
 			return libcnb.Layer{}, fmt.Errorf("unable to extract %s\n%w", artifact.Name(), err)
 		}
 
-		layer.Profile.Add("profiler", `if [[ -z "${BPL_GOOGLE_STACKDRIVER_MODULE+x}" ]]; then
-    MODULE="default-module"
-else
-	MODULE=${BPL_GOOGLE_STACKDRIVER_MODULE}
-fi
+		s, err := sherpa.TemplateFile("/java-profiler.sh", map[string]interface{}{
+			"agentpath": filepath.Join(layer.Path, "profiler_java_agent.so"),
+		})
+		if err != nil {
+			return libcnb.Layer{}, fmt.Errorf("unable to load java-profiler.sh\n%w", err)
+		}
 
-if [[ -z "${BPL_GOOGLE_STACKDRIVER_VERSION+x}" ]]; then
-	VERSION=""
-else
-	VERSION=${BPL_GOOGLE_STACKDRIVER_VERSION}
-fi
-
-printf "Google Stackdriver Profiler enabled for %%s" "${MODULE}"
-AGENT="-agentpath:%s=-logtostderr=1,-cprof_service=${MODULE}"
-
-if [[ "${VERSION}" != "" ]]; then
-	printf ":%%s" "${VERSION}"
-	AGENT="${AGENT},-cprof_service_version=${VERSION}"
-fi
-
-printf "\n"
-export JAVA_OPTS="${JAVA_OPTS} ${AGENT}"
-`, filepath.Join(layer.Path, "profiler_java_agent.so"))
+		layer.Profile.Add("java-profiler.sh", s)
 
 		layer.Launch = true
 		return layer, nil

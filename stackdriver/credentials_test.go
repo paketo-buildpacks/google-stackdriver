@@ -61,8 +61,9 @@ func testCredentials(t *testing.T, context spec.G, it spec.S) {
 
 		Expect(layer.Launch).To(BeTrue())
 		Expect(filepath.Join(layer.Path, "bin", "google-application-credentials")).To(BeARegularFile())
-		Expect(layer.Profile["properties"]).To(Equal(`printf "Configuring Google application credentials\n"
+		Expect(layer.Profile["credentials.sh"]).To(Equal(`printf "Configuring Google application credentials\n"
 
+# shellcheck disable=SC2046
 eval $(google-application-credentials)
 `))
 	})

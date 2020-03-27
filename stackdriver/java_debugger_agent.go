@@ -22,9 +22,11 @@ import (
 	"path/filepath"
 
 	"github.com/buildpacks/libcnb"
+	_ "github.com/paketo-buildpacks/google-stackdriver/stackdriver/statik"
 	"github.com/paketo-buildpacks/libpak"
 	"github.com/paketo-buildpacks/libpak/bard"
 	"github.com/paketo-buildpacks/libpak/crush"
+	"github.com/paketo-buildpacks/libpak/sherpa"
 )
 
 type JavaDebuggerAgent struct {
@@ -36,6 +38,8 @@ func NewJavaDebuggerAgent(dependency libpak.BuildpackDependency, cache libpak.De
 	return JavaDebuggerAgent{LayerContributor: libpak.NewDependencyLayerContributor(dependency, cache, plan)}
 }
 
+//go:generate statik -src . -include *.sh
+
 func (j JavaDebuggerAgent) Contribute(layer libcnb.Layer) (libcnb.Layer, error) {
 	j.Logger.Body(bard.FormatUserConfig("BPL_GOOGLE_STACKDRIVER_MODULE", "the name of the application", "default-module"))
 	j.Logger.Body(bard.FormatUserConfig("BPL_GOOGLE_STACKDRIVER_VERSION", "the version of the application", "<EMPTY>"))
@@ -43,37 +47,20 @@ func (j JavaDebuggerAgent) Contribute(layer libcnb.Layer) (libcnb.Layer, error) 
 	j.LayerContributor.Logger = j.Logger
 
 	return j.LayerContributor.Contribute(layer, func(artifact *os.File) (libcnb.Layer, error) {
-		j.Logger.Body("Expanding to %s", layer.Path)
+		j.Logger.Bodyf("Expanding to %s", layer.Path)
 
 		if err := crush.ExtractTarGz(artifact, layer.Path, 0); err != nil {
 			return libcnb.Layer{}, fmt.Errorf("unable to extract %s\n%w", artifact.Name(), err)
 		}
 
-		layer.Profile.Add("debugger", `if [[ -z "${BPL_GOOGLE_STACKDRIVER_MODULE+x}" ]]; then
-    MODULE="default-module"
-else
-	MODULE=${BPL_GOOGLE_STACKDRIVER_MODULE}
-fi
+		s, err := sherpa.TemplateFile("/java-debugger.sh", map[string]interface{}{
+			"agentPath": filepath.Join(layer.Path, "cdbg_java_agent.so"),
+		})
+		if err != nil {
+			return libcnb.Layer{}, fmt.Errorf("unable to load java-debugger.sh\n%w", err)
+		}
 
-if [[ -z "${BPL_GOOGLE_STACKDRIVER_VERSION+x}" ]]; then
-	VERSION=""
-else
-	VERSION=${BPL_GOOGLE_STACKDRIVER_VERSION}
-fi
-
-printf "Google Stackdriver Debugger enabled for %%s" "${MODULE}"
-export JAVA_OPTS="${JAVA_OPTS}
-  -agentpath:%s=--logtostderr=1
-  -Dcom.google.cdbg.auth.serviceaccount.enable=true
-  -Dcom.google.cdbg.module=${MODULE}"
-
-if [[ "${VERSION}" != "" ]]; then
-	printf ":%%s" "${VERSION}"
-	export JAVA_OPTS="${JAVA_OPTS} -Dcom.google.cdbg.version=${VERSION}"
-fi
-
-printf "\n"
-`, filepath.Join(layer.Path, "cdbg_java_agent.so"))
+		layer.Profile.Add("java-debugger.sh", s)
 
 		layer.Launch = true
 		return layer, nil

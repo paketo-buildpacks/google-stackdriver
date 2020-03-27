@@ -22,6 +22,7 @@ import (
 	"path/filepath"
 
 	"github.com/buildpacks/libcnb"
+	_ "github.com/paketo-buildpacks/google-stackdriver/stackdriver/statik"
 	"github.com/paketo-buildpacks/libpak"
 	"github.com/paketo-buildpacks/libpak/bard"
 	"github.com/paketo-buildpacks/libpak/sherpa"
@@ -39,21 +40,25 @@ func NewCredentials(buildpack libcnb.Buildpack, plan *libcnb.BuildpackPlan) Cred
 	}
 }
 
+//go:generate statik -src . -include *.sh
+
 func (c Credentials) Contribute(layer libcnb.Layer) (libcnb.Layer, error) {
 	c.LayerContributor.Logger = c.Logger
 
 	return c.LayerContributor.Contribute(layer, func(artifact *os.File) (libcnb.Layer, error) {
-		c.Logger.Body("Copying to %s", layer.Path)
+		c.Logger.Bodyf("Copying to %s", layer.Path)
 
 		file := filepath.Join(layer.Path, "bin", "google-application-credentials")
 		if err := sherpa.CopyFile(artifact, file); err != nil {
 			return libcnb.Layer{}, fmt.Errorf("unable to copy %s to %s\n%w", artifact.Name(), file, err)
 		}
 
-		layer.Profile.Add("properties", `printf "Configuring Google application credentials\n"
+		s, err := sherpa.StaticFile("/credentials.sh")
+		if err != nil {
+			return libcnb.Layer{}, fmt.Errorf("unable to load credentials.sh\n%w", err)
+		}
 
-eval $(google-application-credentials)
-`)
+		layer.Profile.Add("credentials.sh", s)
 
 		layer.Launch = true
 		return layer, nil
