@@ -47,6 +47,11 @@ func testCredentials(t *testing.T, context spec.G, it spec.S) {
 		Expect(err).NotTo(HaveOccurred())
 	})
 
+	it.After(func() {
+		Expect(os.RemoveAll(ctx.Buildpack.Path)).To(Succeed())
+		Expect(os.RemoveAll(ctx.Layers.Path)).To(Succeed())
+	})
+
 	it("contributes Properties", func() {
 		Expect(os.MkdirAll(filepath.Join(ctx.Buildpack.Path, "bin"), 0755)).To(Succeed())
 		Expect(ioutil.WriteFile(filepath.Join(ctx.Buildpack.Path, "bin", "google-application-credentials"), []byte{}, 0644)).
