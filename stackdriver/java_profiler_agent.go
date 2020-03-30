@@ -41,9 +41,6 @@ func NewJavaProfilerAgent(dependency libpak.BuildpackDependency, cache libpak.De
 //go:generate statik -src . -include *.sh
 
 func (j JavaProfilerAgent) Contribute(layer libcnb.Layer) (libcnb.Layer, error) {
-	j.Logger.Body(bard.FormatUserConfig("BPL_GOOGLE_STACKDRIVER_MODULE", "the name of the application", "default-module"))
-	j.Logger.Body(bard.FormatUserConfig("BPL_GOOGLE_STACKDRIVER_VERSION", "the version of the application", "<EMPTY>"))
-
 	j.LayerContributor.Logger = j.Logger
 
 	return j.LayerContributor.Contribute(layer, func(artifact *os.File) (libcnb.Layer, error) {
