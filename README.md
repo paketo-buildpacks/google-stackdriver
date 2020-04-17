@@ -1,4 +1,4 @@
-# `paketo-buildpacks/google-stackdriver`
+# `gcr.io/paketo-buildpacks/google-stackdriver`
 The Paketo Google Stackdriver Buildpack is a Cloud Native Buildpack that contributes Stackdriver agents and configures them to connect to the service.
 
 ## Behavior
