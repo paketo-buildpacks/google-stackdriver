@@ -22,13 +22,16 @@ version = "{{.version}}"
 [[stacks]]
 id = "io.buildpacks.stacks.bionic"
 
+[[stacks]]
+id = "org.cloudfoundry.stacks.cflinuxfs3"
+
 [[metadata.dependencies]]
 id      = "google-stackdriver-debugger-java"
 name    = "Google Stackdriver Debugger Java Agent"
 version = "2.24"
 uri     = "https://github.com/GoogleCloudPlatform/cloud-debug-java/releases/download/v2.24/compute-java_debian-wheezy_cdbg_java_agent_gce.tar"
 sha256  = "678fb82501bf3ee358168063220d95b432199ba2bfe3018db6eb3eaf6be8ff50"
-stacks  = [ "io.buildpacks.stacks.bionic" ]
+stacks  = [ "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3" ]
 
   [[metadata.dependencies.licenses]]
   type = "Apache-2.0"
@@ -40,7 +43,7 @@ name    = "Google Stackdriver Debugger NodeJS Agent"
 version = "4.2.2"
 uri     = "https://registry.npmjs.org/@google-cloud/debug-agent/-/debug-agent-4.2.2.tgz"
 sha256  = "a98f8670e27b65e53b69e851444abd2a1dc1c6890b34325f0bcd4cf8d523d87c"
-stacks  = [ "io.buildpacks.stacks.bionic" ]
+stacks  = [ "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3" ]
 
   [[metadata.dependencies.licenses]]
   type = "Apache-2.0"
@@ -52,7 +55,7 @@ name    = "Google Stackdriver Profiler Java Agent"
 version = "20200414.00"
 uri     = "https://storage.googleapis.com/cloud-profiler/java/cloud-profiler-java-agent_20200414_RC00.tar.gz"
 sha256  = "a6f6b6babf33e3805299f9d213df0cb0fa80fb6e31cebe25ac835b9455e4536e"
-stacks  = [ "io.buildpacks.stacks.bionic" ]
+stacks  = [ "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3" ]
 
   [[metadata.dependencies.licenses]]
   type = "Apache-2.0"
@@ -64,7 +67,7 @@ name    = "Google Stackdriver Profiler NodeJS Agent"
 version = "3.0.1"
 uri     = "https://registry.npmjs.org/@google-cloud/profiler/-/profiler-3.0.1.tgz"
 sha256  = "d7c5121378cf550ffc9173fd0d798e56eab699a96f90a1c1d85083602b30e1b6"
-stacks  = [ "io.buildpacks.stacks.bionic" ]
+stacks  = [ "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3" ]
 
   [[metadata.dependencies.licenses]]
   type = "Apache-2.0"
