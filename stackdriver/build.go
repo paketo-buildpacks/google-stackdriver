@@ -33,7 +33,7 @@ func (b Build) Build(context libcnb.BuildContext) (libcnb.BuildResult, error) {
 	b.Logger.Body(bard.FormatUserConfig("BPL_GOOGLE_STACKDRIVER_MODULE", "the name of the application", "default-module"))
 	b.Logger.Body(bard.FormatUserConfig("BPL_GOOGLE_STACKDRIVER_VERSION", "the version of the application", "<EMPTY>"))
 
-	result := libcnb.BuildResult{}
+	result := libcnb.NewBuildResult()
 
 	pr := libpak.PlanEntryResolver{Plan: context.Plan}
 
@@ -53,7 +53,7 @@ func (b Build) Build(context libcnb.BuildContext) (libcnb.BuildResult, error) {
 			return libcnb.BuildResult{}, fmt.Errorf("unable to find dependency\n%w", err)
 		}
 
-		ja := NewJavaDebuggerAgent(dep, dc, &result.Plan)
+		ja := NewJavaDebuggerAgent(dep, dc, result.Plan)
 		ja.Logger = b.Logger
 		result.Layers = append(result.Layers, ja)
 	}
@@ -66,7 +66,7 @@ func (b Build) Build(context libcnb.BuildContext) (libcnb.BuildResult, error) {
 			return libcnb.BuildResult{}, fmt.Errorf("unable to find dependency\n%w", err)
 		}
 
-		ja := NewNodeJSDebuggerAgent(context.Buildpack.Path, dep, dc, &result.Plan)
+		ja := NewNodeJSDebuggerAgent(context.Buildpack.Path, dep, dc, result.Plan)
 		ja.Logger = b.Logger
 		result.Layers = append(result.Layers, ja)
 	}
@@ -79,7 +79,7 @@ func (b Build) Build(context libcnb.BuildContext) (libcnb.BuildResult, error) {
 			return libcnb.BuildResult{}, fmt.Errorf("unable to find dependency\n%w", err)
 		}
 
-		ja := NewJavaProfilerAgent(dep, dc, &result.Plan)
+		ja := NewJavaProfilerAgent(dep, dc, result.Plan)
 		ja.Logger = b.Logger
 		result.Layers = append(result.Layers, ja)
 	}
@@ -92,12 +92,12 @@ func (b Build) Build(context libcnb.BuildContext) (libcnb.BuildResult, error) {
 			return libcnb.BuildResult{}, fmt.Errorf("unable to find dependency\n%w", err)
 		}
 
-		ja := NewNodeJSProfilerAgent(context.Buildpack.Path, dep, dc, &result.Plan)
+		ja := NewNodeJSProfilerAgent(context.Buildpack.Path, dep, dc, result.Plan)
 		ja.Logger = b.Logger
 		result.Layers = append(result.Layers, ja)
 	}
 
-	c := NewCredentials(context.Buildpack, &result.Plan)
+	c := NewCredentials(context.Buildpack, result.Plan)
 	c.Logger = b.Logger
 	result.Layers = append(result.Layers, c)
 
