@@ -83,5 +83,6 @@ include-files = [
   "bin/build",
   "bin/detect",
   "bin/google-application-credentials",
+  "bin/main",
   "buildpack.toml",
 ]

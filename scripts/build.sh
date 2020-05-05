@@ -7,6 +7,7 @@ if [[ -d ../go-cache ]]; then
   export GOPATH
 fi
 
-GOOS="linux" go build -ldflags='-s -w' -o bin/build github.com/paketo-buildpacks/google-stackdriver/cmd/build
-GOOS="linux" go build -ldflags='-s -w' -o bin/detect github.com/paketo-buildpacks/google-stackdriver/cmd/detect
 GOOS="linux" go build -ldflags='-s -w' -o bin/google-application-credentials github.com/paketo-buildpacks/google-stackdriver/cmd/google-application-credentials
+GOOS="linux" go build -ldflags='-s -w' -o bin/main github.com/paketo-buildpacks/google-stackdriver/cmd/main
+ln -fs main bin/build
+ln -fs main bin/detect
