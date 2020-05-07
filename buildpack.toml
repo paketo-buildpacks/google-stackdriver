@@ -26,6 +26,15 @@ id = "io.buildpacks.stacks.bionic"
 [[stacks]]
 id = "org.cloudfoundry.stacks.cflinuxfs3"
 
+[[metadata.configurations]]
+name        = "BPL_GOOGLE_STACKDRIVER_MODULE"
+description = "the name of the application"
+default     = "default-module"
+
+[[metadata.configurations]]
+name        = "BPL_GOOGLE_STACKDRIVER_VERSION"
+description = "the version of the application"
+
 [[metadata.dependencies]]
 id      = "google-stackdriver-debugger-java"
 name    = "Google Stackdriver Debugger Java Agent"

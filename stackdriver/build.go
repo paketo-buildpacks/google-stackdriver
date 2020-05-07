@@ -30,10 +30,12 @@ type Build struct {
 
 func (b Build) Build(context libcnb.BuildContext) (libcnb.BuildResult, error) {
 	b.Logger.Title(context.Buildpack)
-	b.Logger.Body(bard.FormatUserConfig("BPL_GOOGLE_STACKDRIVER_MODULE", "the name of the application", "default-module"))
-	b.Logger.Body(bard.FormatUserConfig("BPL_GOOGLE_STACKDRIVER_VERSION", "the version of the application", "<EMPTY>"))
-
 	result := libcnb.NewBuildResult()
+
+	_, err := libpak.NewConfigurationResolver(context.Buildpack, &b.Logger)
+	if err != nil {
+		return libcnb.BuildResult{}, fmt.Errorf("unable to create configuration resolver\n%w", err)
+	}
 
 	pr := libpak.PlanEntryResolver{Plan: context.Plan}
 
