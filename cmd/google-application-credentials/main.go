@@ -18,7 +18,6 @@ package main
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/buildpacks/libcnb"
 	"github.com/paketo-buildpacks/google-stackdriver/credentials"
@@ -27,22 +26,12 @@ import (
 
 func main() {
 	sherpa.Execute(func() error {
-		var (
-			err error
-			c   credentials.Credentials
-			ok  bool
-		)
-
-		if c.BindingsPath, ok = os.LookupEnv("CNB_BINDINGS"); !ok {
-			return nil
-		}
-
-		c.Bindings, err = libcnb.NewBindingsFromEnvironment()
+		b, err := libcnb.NewBindingsFromEnvironment()
 		if err != nil {
 			return fmt.Errorf("unable to read bindings from environment\n%w", err)
 		}
 
-		e, err := c.Execute()
+		e, err := credentials.Credentials{Bindings: b}.Execute()
 		if err != nil {
 			return err
 		}

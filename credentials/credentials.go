@@ -18,15 +18,13 @@ package credentials
 
 import (
 	"fmt"
-	"path/filepath"
 
 	"github.com/buildpacks/libcnb"
 	"github.com/paketo-buildpacks/libpak"
 )
 
 type Credentials struct {
-	Bindings     libcnb.Bindings
-	BindingsPath string
+	Bindings libcnb.Bindings
 }
 
 func (c Credentials) Execute() (string, error) {
@@ -35,15 +33,17 @@ func (c Credentials) Execute() (string, error) {
 	if b, ok, err := br.Resolve("StackdriverDebugger", ""); err != nil {
 		return "", fmt.Errorf("unable to resolve binding StackdriverDebugger\n%w", err)
 	} else if ok {
-		return fmt.Sprintf(`export GOOGLE_APPLICATION_CREDENTIALS="%s"`,
-			filepath.Join(c.BindingsPath, b.Name, "secret", "ApplicationCredentials")), nil
+		if p, ok := b.SecretFilePath("ApplicationCredentials"); ok {
+			return fmt.Sprintf(`export GOOGLE_APPLICATION_CREDENTIALS="%s"`, p), nil
+		}
 	}
 
 	if b, ok, err := br.Resolve("StackdriverProfiler", ""); err != nil {
 		return "", fmt.Errorf("unable to resolve binding StackdriverProfiler\n%w", err)
 	} else if ok {
-		return fmt.Sprintf(`export GOOGLE_APPLICATION_CREDENTIALS="%s"`,
-			filepath.Join(c.BindingsPath, b.Name, "secret", "ApplicationCredentials")), nil
+		if p, ok := b.SecretFilePath("ApplicationCredentials"); ok {
+			return fmt.Sprintf(`export GOOGLE_APPLICATION_CREDENTIALS="%s"`, p), nil
+		}
 	}
 
 	return "", nil

@@ -40,11 +40,11 @@ func testCredentials(t *testing.T, context spec.G, it spec.S) {
 		c.Bindings = libcnb.Bindings{
 			{
 				Name:     "test-binding",
+				Path:     "/test/path/test-binding",
 				Metadata: map[string]string{"kind": "StackdriverDebugger"},
 				Secret:   map[string]string{"ApplicationCredentials": "test-value"},
 			},
 		}
-		c.BindingsPath = "/test/path"
 
 		Expect(c.Execute()).To(Equal(`export GOOGLE_APPLICATION_CREDENTIALS="/test/path/test-binding/secret/ApplicationCredentials"`))
 	})
@@ -53,11 +53,11 @@ func testCredentials(t *testing.T, context spec.G, it spec.S) {
 		c.Bindings = libcnb.Bindings{
 			{
 				Name:     "test-binding",
+				Path:     "/test/path/test-binding",
 				Metadata: map[string]string{"kind": "StackdriverProfiler"},
 				Secret:   map[string]string{"ApplicationCredentials": "test-value"},
 			},
 		}
-		c.BindingsPath = "/test/path"
 
 		Expect(c.Execute()).To(Equal(`export GOOGLE_APPLICATION_CREDENTIALS="/test/path/test-binding/secret/ApplicationCredentials"`))
 	})
