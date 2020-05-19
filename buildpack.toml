@@ -38,9 +38,9 @@ description = "the version of the application"
 [[metadata.dependencies]]
 id      = "google-stackdriver-debugger-java"
 name    = "Google Stackdriver Debugger Java Agent"
-version = "2.24"
-uri     = "https://github.com/GoogleCloudPlatform/cloud-debug-java/releases/download/v2.24/compute-java_debian-wheezy_cdbg_java_agent_gce.tar"
-sha256  = "678fb82501bf3ee358168063220d95b432199ba2bfe3018db6eb3eaf6be8ff50"
+version = "2.25"
+uri     = "https://github.com/GoogleCloudPlatform/cloud-debug-java/releases/download/v2.25/compute-java_debian-wheezy_cdbg_java_agent_gce.tar"
+sha256  = "773793ed213ddbd9eca3bf019d15aa011d0dea6e51433fb3ee3d9ff76164d1dd"
 stacks  = [ "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3" ]
 
   [[metadata.dependencies.licenses]]
