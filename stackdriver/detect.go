@@ -50,8 +50,7 @@ func (d Detect) Detect(context libcnb.DetectContext) (libcnb.DetectResult, error
 				},
 				Requires: []libcnb.BuildPlanRequire{
 					{Name: "google-stackdriver-debugger-nodejs"},
-					{Name: "npm", Metadata: map[string]interface{}{"build": true}},
-					{Name: "node"},
+					{Name: "node", Metadata: map[string]interface{}{"build": true}},
 				},
 			},
 		)
@@ -77,8 +76,7 @@ func (d Detect) Detect(context libcnb.DetectContext) (libcnb.DetectResult, error
 				},
 				Requires: []libcnb.BuildPlanRequire{
 					{Name: "google-stackdriver-profiler-nodejs"},
-					{Name: "npm", Metadata: map[string]interface{}{"build": true}},
-					{Name: "node"},
+					{Name: "node", Metadata: map[string]interface{}{"build": true}},
 				},
 			},
 		)
