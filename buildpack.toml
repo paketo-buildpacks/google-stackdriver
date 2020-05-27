@@ -30,10 +30,12 @@ id = "org.cloudfoundry.stacks.cflinuxfs3"
 name        = "BPL_GOOGLE_STACKDRIVER_MODULE"
 description = "the name of the application"
 default     = "default-module"
+launch      = true
 
 [[metadata.configurations]]
 name        = "BPL_GOOGLE_STACKDRIVER_VERSION"
 description = "the version of the application"
+launch      = true
 
 [[metadata.dependencies]]
 id      = "google-stackdriver-debugger-java"
