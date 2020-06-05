@@ -47,10 +47,10 @@ func (b Build) Build(context libcnb.BuildContext) (libcnb.BuildResult, error) {
 	dc := libpak.NewDependencyCache(context.Buildpack)
 	dc.Logger = b.Logger
 
-	if e, ok, err := pr.Resolve("google-stackdriver-debugger-java"); err != nil {
+	if _, ok, err := pr.Resolve("google-stackdriver-debugger-java"); err != nil {
 		return libcnb.BuildResult{}, fmt.Errorf("unable to resolve google-stackdriver-debugger-java plan entry\n%w", err)
 	} else if ok {
-		dep, err := dr.Resolve("google-stackdriver-debugger-java", e.Version)
+		dep, err := dr.Resolve("google-stackdriver-debugger-java", "")
 		if err != nil {
 			return libcnb.BuildResult{}, fmt.Errorf("unable to find dependency\n%w", err)
 		}
@@ -60,10 +60,10 @@ func (b Build) Build(context libcnb.BuildContext) (libcnb.BuildResult, error) {
 		result.Layers = append(result.Layers, ja)
 	}
 
-	if e, ok, err := pr.Resolve("google-stackdriver-debugger-nodejs"); err != nil {
+	if _, ok, err := pr.Resolve("google-stackdriver-debugger-nodejs"); err != nil {
 		return libcnb.BuildResult{}, fmt.Errorf("unable to resolve google-stackdriver-debugger-nodejs plan entry\n%w", err)
 	} else if ok {
-		dep, err := dr.Resolve("google-stackdriver-debugger-nodejs", e.Version)
+		dep, err := dr.Resolve("google-stackdriver-debugger-nodejs", "")
 		if err != nil {
 			return libcnb.BuildResult{}, fmt.Errorf("unable to find dependency\n%w", err)
 		}
@@ -73,10 +73,10 @@ func (b Build) Build(context libcnb.BuildContext) (libcnb.BuildResult, error) {
 		result.Layers = append(result.Layers, ja)
 	}
 
-	if e, ok, err := pr.Resolve("google-stackdriver-profiler-java"); err != nil {
+	if _, ok, err := pr.Resolve("google-stackdriver-profiler-java"); err != nil {
 		return libcnb.BuildResult{}, fmt.Errorf("unable to resolve google-stackdriver-profiler-java plan entry\n%w", err)
 	} else if ok {
-		dep, err := dr.Resolve("google-stackdriver-profiler-java", e.Version)
+		dep, err := dr.Resolve("google-stackdriver-profiler-java", "")
 		if err != nil {
 			return libcnb.BuildResult{}, fmt.Errorf("unable to find dependency\n%w", err)
 		}
@@ -86,10 +86,10 @@ func (b Build) Build(context libcnb.BuildContext) (libcnb.BuildResult, error) {
 		result.Layers = append(result.Layers, ja)
 	}
 
-	if e, ok, err := pr.Resolve("google-stackdriver-profiler-nodejs"); err != nil {
+	if _, ok, err := pr.Resolve("google-stackdriver-profiler-nodejs"); err != nil {
 		return libcnb.BuildResult{}, fmt.Errorf("unable to resolve google-stackdriver-profiler-nodejs plan entry\n%w", err)
 	} else if ok {
-		dep, err := dr.Resolve("google-stackdriver-profiler-nodejs", e.Version)
+		dep, err := dr.Resolve("google-stackdriver-profiler-nodejs", "")
 		if err != nil {
 			return libcnb.BuildResult{}, fmt.Errorf("unable to find dependency\n%w", err)
 		}
