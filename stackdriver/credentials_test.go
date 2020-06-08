@@ -69,7 +69,7 @@ func testCredentials(t *testing.T, context spec.G, it spec.S) {
 		Expect(layer.Profile["credentials.sh"]).To(Equal(`printf "Configuring Google application credentials\n"
 
 # shellcheck disable=SC2046
-eval $(google-application-credentials)
+eval $(google-application-credentials) || exit $?
 `))
 	})
 }
