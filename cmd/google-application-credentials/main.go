@@ -20,8 +20,9 @@ import (
 	"fmt"
 
 	"github.com/buildpacks/libcnb"
-	"github.com/paketo-buildpacks/google-stackdriver/credentials"
 	"github.com/paketo-buildpacks/libpak/sherpa"
+
+	"github.com/paketo-buildpacks/google-stackdriver/credentials"
 )
 
 func main() {
