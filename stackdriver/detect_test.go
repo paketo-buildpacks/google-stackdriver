@@ -40,7 +40,7 @@ func testDetect(t *testing.T, context spec.G, it spec.S) {
 
 	it("passes with debugger service", func() {
 		ctx.Platform.Bindings = libcnb.Bindings{
-			libcnb.Binding{Name: "test-service", Metadata: map[string]string{libcnb.BindingKind: "StackdriverDebugger"}},
+			libcnb.Binding{Name: "test-service", Type: "StackdriverDebugger"},
 		}
 
 		Expect(detect.Detect(ctx)).To(Equal(libcnb.DetectResult{
@@ -70,7 +70,7 @@ func testDetect(t *testing.T, context spec.G, it spec.S) {
 
 	it("passes with profiler service", func() {
 		ctx.Platform.Bindings = libcnb.Bindings{
-			libcnb.Binding{Name: "test-service", Metadata: map[string]string{libcnb.BindingKind: "StackdriverProfiler"}},
+			libcnb.Binding{Name: "test-service", Type: "StackdriverProfiler"},
 		}
 
 		Expect(detect.Detect(ctx)).To(Equal(libcnb.DetectResult{

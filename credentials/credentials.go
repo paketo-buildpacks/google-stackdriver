@@ -30,7 +30,7 @@ type Credentials struct {
 func (c Credentials) Execute() (string, error) {
 	br := libpak.BindingResolver{Bindings: c.Bindings}
 
-	if b, ok, err := br.Resolve("StackdriverDebugger", ""); err != nil {
+	if b, ok, err := br.Resolve("StackdriverDebugger"); err != nil {
 		return "", fmt.Errorf("unable to resolve binding StackdriverDebugger\n%w", err)
 	} else if ok {
 		if p, ok := b.SecretFilePath("ApplicationCredentials"); ok {
@@ -38,7 +38,7 @@ func (c Credentials) Execute() (string, error) {
 		}
 	}
 
-	if b, ok, err := br.Resolve("StackdriverProfiler", ""); err != nil {
+	if b, ok, err := br.Resolve("StackdriverProfiler"); err != nil {
 		return "", fmt.Errorf("unable to resolve binding StackdriverProfiler\n%w", err)
 	} else if ok {
 		if p, ok := b.SecretFilePath("ApplicationCredentials"); ok {

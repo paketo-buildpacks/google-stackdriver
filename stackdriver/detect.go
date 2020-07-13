@@ -30,7 +30,7 @@ func (d Detect) Detect(context libcnb.DetectContext) (libcnb.DetectResult, error
 
 	result := libcnb.DetectResult{Pass: false}
 
-	if _, ok, err := br.Resolve("StackdriverDebugger", ""); err != nil {
+	if _, ok, err := br.Resolve("StackdriverDebugger"); err != nil {
 		return libcnb.DetectResult{}, fmt.Errorf("unable to resolve binding StackdriverDebugger\n%w", err)
 	} else if ok {
 		result.Pass = true
@@ -56,7 +56,7 @@ func (d Detect) Detect(context libcnb.DetectContext) (libcnb.DetectResult, error
 		)
 	}
 
-	if _, ok, err := br.Resolve("StackdriverProfiler", ""); err != nil {
+	if _, ok, err := br.Resolve("StackdriverProfiler"); err != nil {
 		return libcnb.DetectResult{}, fmt.Errorf("unable to resolve binding StackdriverProfiler\n%w", err)
 	} else if ok {
 		result.Pass = true

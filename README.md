@@ -4,8 +4,8 @@ The Paketo Google Stackdriver Buildpack is a Cloud Native Buildpack that contrib
 ## Behavior
 This buildpack will participate if any of the following conditions are met
 
-* A binding exists with `kind` of `StackdriverDebugger`
-* A binding exists with `kind` of `StackdriverProfiler`
+* A binding exists with `type` of `StackdriverDebugger`
+* A binding exists with `type` of `StackdriverProfiler`
 
 The buildpack will do the following for Java applications:
 

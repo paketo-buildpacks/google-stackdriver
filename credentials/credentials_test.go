@@ -40,26 +40,26 @@ func testCredentials(t *testing.T, context spec.G, it spec.S) {
 	it("contributes credentials if debugger binding exists", func() {
 		c.Bindings = libcnb.Bindings{
 			{
-				Name:     "test-binding",
-				Path:     "/test/path/test-binding",
-				Metadata: map[string]string{"kind": "StackdriverDebugger"},
-				Secret:   map[string]string{"ApplicationCredentials": "test-value"},
+				Name:   "test-binding",
+				Path:   "/test/path/test-binding",
+				Type:   "StackdriverDebugger",
+				Secret: map[string]string{"ApplicationCredentials": "test-value"},
 			},
 		}
 
-		Expect(c.Execute()).To(Equal(`export GOOGLE_APPLICATION_CREDENTIALS="/test/path/test-binding/secret/ApplicationCredentials"`))
+		Expect(c.Execute()).To(Equal(`export GOOGLE_APPLICATION_CREDENTIALS="/test/path/test-binding/ApplicationCredentials"`))
 	})
 
 	it("contributes credentials if profiler binding exists", func() {
 		c.Bindings = libcnb.Bindings{
 			{
-				Name:     "test-binding",
-				Path:     "/test/path/test-binding",
-				Metadata: map[string]string{"kind": "StackdriverProfiler"},
-				Secret:   map[string]string{"ApplicationCredentials": "test-value"},
+				Name:   "test-binding",
+				Path:   "/test/path/test-binding",
+				Type:   "StackdriverProfiler",
+				Secret: map[string]string{"ApplicationCredentials": "test-value"},
 			},
 		}
 
-		Expect(c.Execute()).To(Equal(`export GOOGLE_APPLICATION_CREDENTIALS="/test/path/test-binding/secret/ApplicationCredentials"`))
+		Expect(c.Execute()).To(Equal(`export GOOGLE_APPLICATION_CREDENTIALS="/test/path/test-binding/ApplicationCredentials"`))
 	})
 }
