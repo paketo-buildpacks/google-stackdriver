@@ -45,7 +45,6 @@ func NewNodeJSProfilerAgent(applicationPath string, dependency libpak.BuildpackD
 	}
 }
 
-
 func (n NodeJSProfilerAgent) Contribute(layer libcnb.Layer) (libcnb.Layer, error) {
 	n.LayerContributor.Logger = n.Logger
 
