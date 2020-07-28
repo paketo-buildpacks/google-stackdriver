@@ -33,6 +33,11 @@ default     = "default-module"
 launch      = true
 
 [[metadata.configurations]]
+name        = "BPL_GOOGLE_STACKDRIVER_PROJECT_ID"
+description = "the project id for the application"
+launch      = true
+
+[[metadata.configurations]]
 name        = "BPL_GOOGLE_STACKDRIVER_VERSION"
 description = "the version of the application"
 launch      = true
