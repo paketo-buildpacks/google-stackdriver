@@ -71,6 +71,12 @@ else
 	MODULE=${BPL_GOOGLE_STACKDRIVER_MODULE}
 fi
 
+if [[ -z "${BPL_GOOGLE_STACKDRIVER_PROJECT_ID+x}" ]]; then
+    PROJECT_ID=""
+else
+	PROJECT_ID=${BPL_GOOGLE_STACKDRIVER_PROJECT_ID}
+fi
+
 if [[ -z "${BPL_GOOGLE_STACKDRIVER_VERSION+x}" ]]; then
 	VERSION=""
 else
@@ -78,7 +84,7 @@ else
 fi
 
 printf "Google Stackdriver Profiler enabled for %%s" "${MODULE}"
-AGENT="-agentpath:%s=-logtostderr=1,-cprof_service=${MODULE}"
+AGENT="-agentpath:%s=-logtostderr=1,-cprof_project_id=${PROJECT_ID},-cprof_service=${MODULE}"
 
 if [[ "${VERSION}" != "" ]]; then
 	printf ":%%s" "${VERSION}"
