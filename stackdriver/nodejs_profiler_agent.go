@@ -92,6 +92,6 @@ func (n NodeJSProfilerAgent) Contribute(layer libcnb.Layer) (libcnb.Layer, error
 	return layer, nil
 }
 
-func (NodeJSProfilerAgent) Name() string {
-	return "nodejs-profiler"
+func (n NodeJSProfilerAgent) Name() string {
+	return n.LayerContributor.LayerName()
 }

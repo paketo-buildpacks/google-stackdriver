@@ -50,8 +50,8 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 		Expect(err).NotTo(HaveOccurred())
 
 		Expect(result.Layers).To(HaveLen(2))
-		Expect(result.Layers[0].Name()).To(Equal("java-debugger"))
-		Expect(result.Layers[1].Name()).To(Equal("credentials"))
+		Expect(result.Layers[0].Name()).To(Equal("google-stackdriver-debugger-java"))
+		Expect(result.Layers[1].Name()).To(Equal("google-application-credentials"))
 	})
 
 	it("contributes NodeJS debugger agent", func() {
@@ -71,8 +71,8 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 		Expect(err).NotTo(HaveOccurred())
 
 		Expect(result.Layers).To(HaveLen(2))
-		Expect(result.Layers[0].Name()).To(Equal("nodejs-debugger"))
-		Expect(result.Layers[1].Name()).To(Equal("credentials"))
+		Expect(result.Layers[0].Name()).To(Equal("google-stackdriver-debugger-nodejs"))
+		Expect(result.Layers[1].Name()).To(Equal("google-application-credentials"))
 	})
 
 	it("contributes Java profiler agent", func() {
@@ -92,8 +92,8 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 		Expect(err).NotTo(HaveOccurred())
 
 		Expect(result.Layers).To(HaveLen(2))
-		Expect(result.Layers[0].Name()).To(Equal("java-profiler"))
-		Expect(result.Layers[1].Name()).To(Equal("credentials"))
+		Expect(result.Layers[0].Name()).To(Equal("google-stackdriver-profiler-java"))
+		Expect(result.Layers[1].Name()).To(Equal("google-application-credentials"))
 	})
 
 	it("contributes NodeJS profiler agent", func() {
@@ -113,7 +113,7 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 		Expect(err).NotTo(HaveOccurred())
 
 		Expect(result.Layers).To(HaveLen(2))
-		Expect(result.Layers[0].Name()).To(Equal("nodejs-profiler"))
-		Expect(result.Layers[1].Name()).To(Equal("credentials"))
+		Expect(result.Layers[0].Name()).To(Equal("google-stackdriver-profiler-nodejs"))
+		Expect(result.Layers[1].Name()).To(Equal("google-application-credentials"))
 	})
 }

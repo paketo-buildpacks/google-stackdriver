@@ -92,6 +92,6 @@ func (n NodeJSDebuggerAgent) Contribute(layer libcnb.Layer) (libcnb.Layer, error
 	return layer, nil
 }
 
-func (NodeJSDebuggerAgent) Name() string {
-	return "nodejs-debugger"
+func (n NodeJSDebuggerAgent) Name() string {
+	return n.LayerContributor.LayerName()
 }

@@ -66,6 +66,6 @@ func (j JavaProfilerAgent) Contribute(layer libcnb.Layer) (libcnb.Layer, error) 
 
 }
 
-func (JavaProfilerAgent) Name() string {
-	return "java-profiler"
+func (j JavaProfilerAgent) Name() string {
+	return j.LayerContributor.LayerName()
 }

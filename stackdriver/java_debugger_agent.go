@@ -65,6 +65,6 @@ func (j JavaDebuggerAgent) Contribute(layer libcnb.Layer) (libcnb.Layer, error) 
 	})
 }
 
-func (JavaDebuggerAgent) Name() string {
-	return "java-debugger"
+func (j JavaDebuggerAgent) Name() string {
+	return j.LayerContributor.LayerName()
 }

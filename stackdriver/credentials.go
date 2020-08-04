@@ -66,6 +66,6 @@ func (c Credentials) Contribute(layer libcnb.Layer) (libcnb.Layer, error) {
 	})
 }
 
-func (Credentials) Name() string {
-	return "credentials"
+func (c Credentials) Name() string {
+	return c.LayerContributor.LayerName()
 }
