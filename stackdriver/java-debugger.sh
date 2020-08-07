@@ -11,14 +11,14 @@ else
 fi
 
 printf "Google Stackdriver Debugger enabled for %s" "${MODULE}"
-export JAVA_OPTS="${JAVA_OPTS}
+export JAVA_TOOL_OPTIONS="${JAVA_TOOL_OPTIONS}
   -agentpath:{{.agentPath}}=--logtostderr=1
   -Dcom.google.cdbg.auth.serviceaccount.enable=true
   -Dcom.google.cdbg.module=${MODULE}"
 
 if [[ "${VERSION}" != "" ]]; then
 	printf ":%s" "${VERSION}"
-	export JAVA_OPTS="${JAVA_OPTS} -Dcom.google.cdbg.version=${VERSION}"
+	export JAVA_TOOL_OPTIONS="${JAVA_TOOL_OPTIONS} -Dcom.google.cdbg.version=${VERSION}"
 fi
 
 printf "\n"

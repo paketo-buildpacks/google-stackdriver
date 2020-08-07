@@ -25,4 +25,4 @@ if [[ "${VERSION}" != "" ]]; then
 fi
 
 printf "\n"
-export JAVA_OPTS="${JAVA_OPTS} ${AGENT}"
+export JAVA_TOOL_OPTIONS="${JAVA_TOOL_OPTIONS} ${AGENT}"

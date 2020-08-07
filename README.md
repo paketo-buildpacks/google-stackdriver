@@ -9,8 +9,8 @@ This buildpack will participate if any of the following conditions are met
 
 The buildpack will do the following for Java applications:
 
-* If `StackdriverDebugger` binding exists contributes a Java debugger agent to a layer and configures `$JAVA_OPTS` to use it
-* If `StackdriverProfiler` binding exists contributes a Java profiler agent to a layer and configures `$JAVA_OPTS` to use it
+* If `StackdriverDebugger` binding exists contributes a Java debugger agent to a layer and configures `$JAVA_TOOL_OPTIONS` to use it
+* If `StackdriverProfiler` binding exists contributes a Java profiler agent to a layer and configures `$JAVA_TOOL_OPTIONS` to use it
 * Sets `$GOOGLE_APPLICATION_CREDENTIALS` to the path of the `ApplicationCredentials` secret
 
 The buildpack will do the following for NodeJS applications:
