@@ -14,37 +14,41 @@
  * limitations under the License.
  */
 
-package credentials
+package helper
 
 import (
 	"fmt"
 
 	"github.com/buildpacks/libcnb"
 	"github.com/paketo-buildpacks/libpak"
+	"github.com/paketo-buildpacks/libpak/bard"
 )
 
 type Credentials struct {
 	Bindings libcnb.Bindings
+	Logger   bard.Logger
 }
 
-func (c Credentials) Execute() (string, error) {
+func (c Credentials) Execute() (map[string]string, error) {
 	br := libpak.BindingResolver{Bindings: c.Bindings}
 
 	if b, ok, err := br.Resolve("StackdriverDebugger"); err != nil {
-		return "", fmt.Errorf("unable to resolve binding StackdriverDebugger\n%w", err)
+		return nil, fmt.Errorf("unable to resolve binding StackdriverDebugger\n%w", err)
 	} else if ok {
 		if p, ok := b.SecretFilePath("ApplicationCredentials"); ok {
-			return fmt.Sprintf(`export GOOGLE_APPLICATION_CREDENTIALS="%s"`, p), nil
+			c.Logger.Info("Configuring Google application credentials")
+			return map[string]string{"GOOGLE_APPLICATION_CREDENTIALS": p}, nil
 		}
 	}
 
 	if b, ok, err := br.Resolve("StackdriverProfiler"); err != nil {
-		return "", fmt.Errorf("unable to resolve binding StackdriverProfiler\n%w", err)
+		return nil, fmt.Errorf("unable to resolve binding StackdriverProfiler\n%w", err)
 	} else if ok {
 		if p, ok := b.SecretFilePath("ApplicationCredentials"); ok {
-			return fmt.Sprintf(`export GOOGLE_APPLICATION_CREDENTIALS="%s"`, p), nil
+			c.Logger.Info("Configuring Google application credentials")
+			return map[string]string{"GOOGLE_APPLICATION_CREDENTIALS": p}, nil
 		}
 	}
 
-	return "", nil
+	return nil, nil
 }

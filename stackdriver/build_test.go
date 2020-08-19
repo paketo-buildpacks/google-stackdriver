@@ -21,6 +21,7 @@ import (
 
 	"github.com/buildpacks/libcnb"
 	. "github.com/onsi/gomega"
+	"github.com/paketo-buildpacks/libpak"
 	"github.com/sclevine/spec"
 
 	"github.com/paketo-buildpacks/google-stackdriver/stackdriver"
@@ -51,7 +52,8 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 
 		Expect(result.Layers).To(HaveLen(2))
 		Expect(result.Layers[0].Name()).To(Equal("google-stackdriver-debugger-java"))
-		Expect(result.Layers[1].Name()).To(Equal("google-application-credentials"))
+		Expect(result.Layers[1].Name()).To(Equal("helper"))
+		Expect(result.Layers[1].(libpak.HelperLayerContributor).Names).To(Equal([]string{"credentials", "java-debugger"}))
 	})
 
 	it("contributes NodeJS debugger agent", func() {
@@ -72,7 +74,8 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 
 		Expect(result.Layers).To(HaveLen(2))
 		Expect(result.Layers[0].Name()).To(Equal("google-stackdriver-debugger-nodejs"))
-		Expect(result.Layers[1].Name()).To(Equal("google-application-credentials"))
+		Expect(result.Layers[1].Name()).To(Equal("helper"))
+		Expect(result.Layers[1].(libpak.HelperLayerContributor).Names).To(Equal([]string{"credentials"}))
 	})
 
 	it("contributes Java profiler agent", func() {
@@ -93,7 +96,8 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 
 		Expect(result.Layers).To(HaveLen(2))
 		Expect(result.Layers[0].Name()).To(Equal("google-stackdriver-profiler-java"))
-		Expect(result.Layers[1].Name()).To(Equal("google-application-credentials"))
+		Expect(result.Layers[1].Name()).To(Equal("helper"))
+		Expect(result.Layers[1].(libpak.HelperLayerContributor).Names).To(Equal([]string{"credentials", "java-profiler"}))
 	})
 
 	it("contributes NodeJS profiler agent", func() {
@@ -114,6 +118,7 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 
 		Expect(result.Layers).To(HaveLen(2))
 		Expect(result.Layers[0].Name()).To(Equal("google-stackdriver-profiler-nodejs"))
-		Expect(result.Layers[1].Name()).To(Equal("google-application-credentials"))
+		Expect(result.Layers[1].Name()).To(Equal("helper"))
+		Expect(result.Layers[1].(libpak.HelperLayerContributor).Names).To(Equal([]string{"credentials"}))
 	})
 }

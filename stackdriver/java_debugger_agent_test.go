@@ -64,31 +64,8 @@ func testJavaDebuggerAgent(t *testing.T, context spec.G, it spec.S) {
 
 		Expect(layer.Launch).To(BeTrue())
 
-		Expect(filepath.Join(layer.Path, "cdbg_java_agent.so")).To(BeARegularFile())
-		Expect(layer.Profile["java-debugger.sh"]).To(Equal(fmt.Sprintf(`if [[ -z "${BPL_GOOGLE_STACKDRIVER_MODULE+x}" ]]; then
-    MODULE="default-module"
-else
-	MODULE=${BPL_GOOGLE_STACKDRIVER_MODULE}
-fi
-
-if [[ -z "${BPL_GOOGLE_STACKDRIVER_VERSION+x}" ]]; then
-	VERSION=""
-else
-	VERSION=${BPL_GOOGLE_STACKDRIVER_VERSION}
-fi
-
-printf "Google Stackdriver Debugger enabled for %%s" "${MODULE}"
-export JAVA_TOOL_OPTIONS="${JAVA_TOOL_OPTIONS}
-  -agentpath:%s=--logtostderr=1
-  -Dcom.google.cdbg.auth.serviceaccount.enable=true
-  -Dcom.google.cdbg.module=${MODULE}"
-
-if [[ "${VERSION}" != "" ]]; then
-	printf ":%%s" "${VERSION}"
-	export JAVA_TOOL_OPTIONS="${JAVA_TOOL_OPTIONS} -Dcom.google.cdbg.version=${VERSION}"
-fi
-
-printf "\n"
-`, filepath.Join(layer.Path, "cdbg_java_agent.so"))))
+		file := filepath.Join(layer.Path, "cdbg_java_agent.so")
+		Expect(file).To(BeARegularFile())
+		Expect(layer.LaunchEnvironment["JAVA_TOOL_OPTIONS.append"]).To(Equal(fmt.Sprintf("-agentpath:%s=--logtostderr=1", file)))
 	})
 }

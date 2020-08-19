@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package credentials_test
+package helper_test
 
 import (
 	"testing"
@@ -26,5 +26,7 @@ import (
 func TestUnit(t *testing.T) {
 	suite := spec.New("credentials", spec.Report(report.Terminal{}))
 	suite("Credentials", testCredentials)
+	suite("JavaDebugger", testJavaDebugger)
+	suite("JavaProfiler", testJavaProfiler)
 	suite.Run(t)
 }

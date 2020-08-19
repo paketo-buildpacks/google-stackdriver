@@ -26,7 +26,6 @@ import (
 func TestUnit(t *testing.T) {
 	suite := spec.New("stackdriver", spec.Report(report.Terminal{}))
 	suite("Build", testBuild)
-	suite("Credentials", testCredentials)
 	suite("Detect", testDetect)
 	suite("JavaDebuggerAgent", testJavaDebuggerAgent)
 	suite("JavaProfilerAgent", testJavaProfilerAgent)

@@ -50,6 +50,8 @@ func (b Build) Build(context libcnb.BuildContext) (libcnb.BuildResult, error) {
 	}
 	dc.Logger = b.Logger
 
+	names := []string{"credentials"}
+
 	if _, ok, err := pr.Resolve("google-stackdriver-debugger-java"); err != nil {
 		return libcnb.BuildResult{}, fmt.Errorf("unable to resolve google-stackdriver-debugger-java plan entry\n%w", err)
 	} else if ok {
@@ -61,6 +63,8 @@ func (b Build) Build(context libcnb.BuildContext) (libcnb.BuildResult, error) {
 		ja := NewJavaDebuggerAgent(dep, dc, result.Plan)
 		ja.Logger = b.Logger
 		result.Layers = append(result.Layers, ja)
+
+		names = append(names, "java-debugger")
 	}
 
 	if _, ok, err := pr.Resolve("google-stackdriver-debugger-nodejs"); err != nil {
@@ -87,6 +91,8 @@ func (b Build) Build(context libcnb.BuildContext) (libcnb.BuildResult, error) {
 		ja := NewJavaProfilerAgent(dep, dc, result.Plan)
 		ja.Logger = b.Logger
 		result.Layers = append(result.Layers, ja)
+
+		names = append(names, "java-profiler")
 	}
 
 	if _, ok, err := pr.Resolve("google-stackdriver-profiler-nodejs"); err != nil {
@@ -102,9 +108,9 @@ func (b Build) Build(context libcnb.BuildContext) (libcnb.BuildResult, error) {
 		result.Layers = append(result.Layers, ja)
 	}
 
-	c := NewCredentials(context.Buildpack, result.Plan)
-	c.Logger = b.Logger
-	result.Layers = append(result.Layers, c)
+	h := libpak.NewHelperLayerContributor(context.Buildpack, result.Plan, names...)
+	h.Logger = b.Logger
+	result.Layers = append(result.Layers, h)
 
 	return result, nil
 }

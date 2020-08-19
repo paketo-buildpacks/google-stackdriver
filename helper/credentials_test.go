@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package credentials_test
+package helper_test
 
 import (
 	"testing"
@@ -23,14 +23,14 @@ import (
 	. "github.com/onsi/gomega"
 	"github.com/sclevine/spec"
 
-	"github.com/paketo-buildpacks/google-stackdriver/credentials"
+	"github.com/paketo-buildpacks/google-stackdriver/helper"
 )
 
 func testCredentials(t *testing.T, context spec.G, it spec.S) {
 	var (
 		Expect = NewWithT(t).Expect
 
-		c credentials.Credentials
+		c helper.Credentials
 	)
 
 	it("does not contribute properties if no binding exists", func() {
@@ -47,7 +47,9 @@ func testCredentials(t *testing.T, context spec.G, it spec.S) {
 			},
 		}
 
-		Expect(c.Execute()).To(Equal(`export GOOGLE_APPLICATION_CREDENTIALS="/test/path/test-binding/ApplicationCredentials"`))
+		Expect(c.Execute()).To(Equal(map[string]string{
+			"GOOGLE_APPLICATION_CREDENTIALS": "/test/path/test-binding/ApplicationCredentials",
+		}))
 	})
 
 	it("contributes credentials if profiler binding exists", func() {
@@ -60,6 +62,8 @@ func testCredentials(t *testing.T, context spec.G, it spec.S) {
 			},
 		}
 
-		Expect(c.Execute()).To(Equal(`export GOOGLE_APPLICATION_CREDENTIALS="/test/path/test-binding/ApplicationCredentials"`))
+		Expect(c.Execute()).To(Equal(map[string]string{
+			"GOOGLE_APPLICATION_CREDENTIALS": "/test/path/test-binding/ApplicationCredentials",
+		}))
 	})
 }

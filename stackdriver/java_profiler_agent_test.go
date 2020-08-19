@@ -17,7 +17,6 @@
 package stackdriver_test
 
 import (
-	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -64,35 +63,8 @@ func testJavaProfilerAgent(t *testing.T, context spec.G, it spec.S) {
 
 		Expect(layer.Launch).To(BeTrue())
 
-		Expect(filepath.Join(layer.Path, "profiler_java_agent.so")).To(BeARegularFile())
-		Expect(layer.Profile["java-profiler.sh"]).To(Equal(fmt.Sprintf(`if [[ -z "${BPL_GOOGLE_STACKDRIVER_MODULE+x}" ]]; then
-    MODULE="default-module"
-else
-	MODULE=${BPL_GOOGLE_STACKDRIVER_MODULE}
-fi
-
-if [[ -z "${BPL_GOOGLE_STACKDRIVER_PROJECT_ID+x}" ]]; then
-    PROJECT_ID=""
-else
-	PROJECT_ID=${BPL_GOOGLE_STACKDRIVER_PROJECT_ID}
-fi
-
-if [[ -z "${BPL_GOOGLE_STACKDRIVER_VERSION+x}" ]]; then
-	VERSION=""
-else
-	VERSION=${BPL_GOOGLE_STACKDRIVER_VERSION}
-fi
-
-printf "Google Stackdriver Profiler enabled for %%s" "${MODULE}"
-AGENT="-agentpath:%s=-logtostderr=1,-cprof_project_id=${PROJECT_ID},-cprof_service=${MODULE}"
-
-if [[ "${VERSION}" != "" ]]; then
-	printf ":%%s" "${VERSION}"
-	AGENT="${AGENT},-cprof_service_version=${VERSION}"
-fi
-
-printf "\n"
-export JAVA_TOOL_OPTIONS="${JAVA_TOOL_OPTIONS} ${AGENT}"
-`, filepath.Join(layer.Path, "profiler_java_agent.so"))))
+		file := filepath.Join(layer.Path, "profiler_java_agent.so")
+		Expect(file).To(BeARegularFile())
+		Expect(layer.LaunchEnvironment["BPI_GOOGLE_STACKDRIVER_PROFILER_JAVA_AGENT_PATH.default"]).To(Equal(file))
 	})
 }
