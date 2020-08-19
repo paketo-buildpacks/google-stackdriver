@@ -46,6 +46,7 @@ func (j JavaDebuggerAgent) Contribute(layer libcnb.Layer) (libcnb.Layer, error) 
 			return libcnb.Layer{}, fmt.Errorf("unable to extract %s\n%w", artifact.Name(), err)
 		}
 
+		layer.LaunchEnvironment.Delimiter("JAVA_TOOL_OPTIONS", " ")
 		layer.LaunchEnvironment.Appendf("JAVA_TOOL_OPTIONS",
 			"-agentpath:%s=--logtostderr=1", filepath.Join(layer.Path, "cdbg_java_agent.so"))
 
