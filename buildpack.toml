@@ -98,7 +98,7 @@ include-files = [
   "README.md",
   "bin/build",
   "bin/detect",
-  "bin/google-application-credentials",
+  "bin/helper",
   "bin/main",
   "buildpack.toml",
 ]

@@ -25,9 +25,6 @@ import (
 	"github.com/paketo-buildpacks/libpak"
 	"github.com/paketo-buildpacks/libpak/bard"
 	"github.com/paketo-buildpacks/libpak/crush"
-	"github.com/paketo-buildpacks/libpak/sherpa"
-
-	_ "github.com/paketo-buildpacks/google-stackdriver/stackdriver/statik"
 )
 
 type JavaProfilerAgent struct {
@@ -39,8 +36,6 @@ func NewJavaProfilerAgent(dependency libpak.BuildpackDependency, cache libpak.De
 	return JavaProfilerAgent{LayerContributor: libpak.NewDependencyLayerContributor(dependency, cache, plan)}
 }
 
-//go:generate statik -src . -include *.sh
-
 func (j JavaProfilerAgent) Contribute(layer libcnb.Layer) (libcnb.Layer, error) {
 	j.LayerContributor.Logger = j.Logger
 
@@ -51,14 +46,8 @@ func (j JavaProfilerAgent) Contribute(layer libcnb.Layer) (libcnb.Layer, error) 
 			return libcnb.Layer{}, fmt.Errorf("unable to extract %s\n%w", artifact.Name(), err)
 		}
 
-		s, err := sherpa.TemplateFile("/java-profiler.sh", map[string]interface{}{
-			"agentpath": filepath.Join(layer.Path, "profiler_java_agent.so"),
-		})
-		if err != nil {
-			return libcnb.Layer{}, fmt.Errorf("unable to load java-profiler.sh\n%w", err)
-		}
-
-		layer.Profile.Add("java-profiler.sh", s)
+		layer.LaunchEnvironment.Default("BPI_GOOGLE_STACKDRIVER_PROFILER_JAVA_AGENT_PATH",
+			filepath.Join(layer.Path, "profiler_java_agent.so"))
 
 		layer.Launch = true
 		return layer, nil

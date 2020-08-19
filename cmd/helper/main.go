@@ -18,26 +18,34 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/buildpacks/libcnb"
+	"github.com/paketo-buildpacks/libpak/bard"
 	"github.com/paketo-buildpacks/libpak/sherpa"
 
-	"github.com/paketo-buildpacks/google-stackdriver/credentials"
+	"github.com/paketo-buildpacks/google-stackdriver/helper"
 )
 
 func main() {
 	sherpa.Execute(func() error {
-		b, err := libcnb.NewBindingsFromEnvironment()
+		var (
+			err error
+			l   = bard.NewLogger(os.Stdout)
+			c   = helper.Credentials{Logger: l}
+			d   = helper.JavaDebugger{Logger: l}
+			p   = helper.JavaProfiler{Logger: l}
+		)
+
+		c.Bindings, err = libcnb.NewBindingsFromEnvironment()
 		if err != nil {
 			return fmt.Errorf("unable to read bindings from environment\n%w", err)
 		}
 
-		e, err := credentials.Credentials{Bindings: b}.Execute()
-		if err != nil {
-			return err
-		}
-
-		fmt.Println(e)
-		return nil
+		return sherpa.Helpers(map[string]sherpa.ExecD{
+			"credentials":   c,
+			"java-debugger": d,
+			"java-profiler": p,
+		})
 	})
 }
