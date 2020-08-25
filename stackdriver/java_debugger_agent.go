@@ -50,9 +50,8 @@ func (j JavaDebuggerAgent) Contribute(layer libcnb.Layer) (libcnb.Layer, error) 
 		layer.LaunchEnvironment.Appendf("JAVA_TOOL_OPTIONS",
 			"-agentpath:%s=--logtostderr=1", filepath.Join(layer.Path, "cdbg_java_agent.so"))
 
-		layer.Launch = true
 		return layer, nil
-	})
+	}, libpak.LaunchLayer)
 }
 
 func (j JavaDebuggerAgent) Name() string {

@@ -49,9 +49,8 @@ func (j JavaProfilerAgent) Contribute(layer libcnb.Layer) (libcnb.Layer, error) 
 		layer.LaunchEnvironment.Default("BPI_GOOGLE_STACKDRIVER_PROFILER_JAVA_AGENT_PATH",
 			filepath.Join(layer.Path, "profiler_java_agent.so"))
 
-		layer.Launch = true
 		return layer, nil
-	})
+	}, libpak.LaunchLayer)
 
 }
 
