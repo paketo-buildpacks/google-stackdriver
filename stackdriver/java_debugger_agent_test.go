@@ -66,7 +66,7 @@ func testJavaDebuggerAgent(t *testing.T, context spec.G, it spec.S) {
 
 		file := filepath.Join(layer.Path, "cdbg_java_agent.so")
 		Expect(file).To(BeARegularFile())
-		Expect(layer.LaunchEnvironment["JAVA_TOOL_OPTIONS.delimiter"]).To(Equal(" "))
+		Expect(layer.LaunchEnvironment["JAVA_TOOL_OPTIONS.delim"]).To(Equal(" "))
 		Expect(layer.LaunchEnvironment["JAVA_TOOL_OPTIONS.append"]).To(Equal(fmt.Sprintf("-agentpath:%s=--logtostderr=1", file)))
 	})
 }
