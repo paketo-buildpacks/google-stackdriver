@@ -61,7 +61,7 @@ func (n NodeJSProfilerAgent) Contribute(layer libcnb.Layer) (libcnb.Layer, error
 			return libcnb.Layer{}, fmt.Errorf("unable to run npm install\n%w", err)
 		}
 
-		layer.LaunchEnvironment.PrependPath("NODE_PATH", filepath.Join(layer.Path, "node_modules"))
+		layer.LaunchEnvironment.Prepend("NODE_PATH", string(os.PathListSeparator), filepath.Join(layer.Path, "node_modules"))
 
 		return layer, nil
 	}, libpak.LaunchLayer)
