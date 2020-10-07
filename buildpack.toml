@@ -45,9 +45,9 @@ launch      = true
 [[metadata.dependencies]]
 id      = "google-stackdriver-debugger-java"
 name    = "Google Stackdriver Debugger Java Agent"
-version = "0.0.0"
-uri     = "placeholder"
-sha256  = "placeholder"
+version = "2.26.0"
+uri     = "https://github.com/GoogleCloudPlatform/cloud-debug-java/releases/download/v2.26/compute-java_debian-wheezy_cdbg_java_agent_gce.tar"
+sha256  = "4fe2c6a55aa46805385817b4727d19cddf4cf9091348240fa89fedbbecd02211"
 stacks  = [ "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3" ]
 
   [[metadata.dependencies.licenses]]
@@ -57,9 +57,9 @@ stacks  = [ "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3" 
 [[metadata.dependencies]]
 id      = "google-stackdriver-debugger-nodejs"
 name    = "Google Stackdriver Debugger NodeJS Agent"
-version = "0.0.0"
-uri     = "placeholder"
-sha256  = "placeholder"
+version = "5.1.2"
+uri     = "https://registry.npmjs.org/@google-cloud/debug-agent/-/debug-agent-5.1.2.tgz"
+sha256  = "2078611860149cb9acac9ffe119600a40488d203b713507a13a3f8bccf9eef88"
 stacks  = [ "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3" ]
 
   [[metadata.dependencies.licenses]]
@@ -69,9 +69,9 @@ stacks  = [ "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3" 
 [[metadata.dependencies]]
 id      = "google-stackdriver-profiler-java"
 name    = "Google Stackdriver Profiler Java Agent"
-version = "0.0.0"
-uri     = "placeholder"
-sha256  = "placeholder"
+version = "20201005.0.0"
+uri     = "https://storage.googleapis.com/cloud-profiler/java/cloud-profiler-java-agent_20201005_RC00.tar.gz"
+sha256  = "5847529b25fdc8068242c17fa00a4cbb728f322f731fb059657a45bb64feb7f6"
 stacks  = [ "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3" ]
 
   [[metadata.dependencies.licenses]]
