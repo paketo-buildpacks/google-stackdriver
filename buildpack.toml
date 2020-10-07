@@ -81,9 +81,9 @@ stacks  = [ "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3" 
 [[metadata.dependencies]]
 id      = "google-stackdriver-profiler-nodejs"
 name    = "Google Stackdriver Profiler NodeJS Agent"
-version = "0.0.0"
-uri     = "placeholder"
-sha256  = "placeholder"
+version = "4.0.3"
+uri     = "https://registry.npmjs.org/@google-cloud/profiler/-/profiler-4.0.3.tgz"
+sha256  = "22c184572d8dff2fc53f122e7fafb728f9e7682777aa6b4acac8f6f8187b1e38"
 stacks  = [ "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3" ]
 
   [[metadata.dependencies.licenses]]
