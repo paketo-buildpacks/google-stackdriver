@@ -20,17 +20,15 @@ import (
 	"fmt"
 
 	"github.com/buildpacks/libcnb"
-	"github.com/paketo-buildpacks/libpak"
+	"github.com/paketo-buildpacks/libpak/bindings"
 )
 
 type Detect struct{}
 
 func (d Detect) Detect(context libcnb.DetectContext) (libcnb.DetectResult, error) {
-	br := libpak.BindingResolver{Bindings: context.Platform.Bindings}
-
 	result := libcnb.DetectResult{Pass: false}
 
-	if _, ok, err := br.Resolve("StackdriverDebugger"); err != nil {
+	if _, ok, err := bindings.ResolveOne(context.Platform.Bindings, bindings.OfType("StackdriverDebugger")); err != nil {
 		return libcnb.DetectResult{}, fmt.Errorf("unable to resolve binding StackdriverDebugger\n%w", err)
 	} else if ok {
 		result.Pass = true
@@ -56,7 +54,7 @@ func (d Detect) Detect(context libcnb.DetectContext) (libcnb.DetectResult, error
 		)
 	}
 
-	if _, ok, err := br.Resolve("StackdriverProfiler"); err != nil {
+	if _, ok, err := bindings.ResolveOne(context.Platform.Bindings, bindings.OfType("StackdriverProfiler")); err != nil {
 		return libcnb.DetectResult{}, fmt.Errorf("unable to resolve binding StackdriverProfiler\n%w", err)
 	} else if ok {
 		result.Pass = true

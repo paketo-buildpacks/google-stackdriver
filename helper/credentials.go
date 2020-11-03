@@ -20,8 +20,8 @@ import (
 	"fmt"
 
 	"github.com/buildpacks/libcnb"
-	"github.com/paketo-buildpacks/libpak"
 	"github.com/paketo-buildpacks/libpak/bard"
+	"github.com/paketo-buildpacks/libpak/bindings"
 )
 
 type Credentials struct {
@@ -30,9 +30,7 @@ type Credentials struct {
 }
 
 func (c Credentials) Execute() (map[string]string, error) {
-	br := libpak.BindingResolver{Bindings: c.Bindings}
-
-	if b, ok, err := br.Resolve("StackdriverDebugger"); err != nil {
+	if b, ok, err := bindings.ResolveOne(c.Bindings, bindings.OfType("StackdriverDebugger")); err != nil {
 		return nil, fmt.Errorf("unable to resolve binding StackdriverDebugger\n%w", err)
 	} else if ok {
 		if p, ok := b.SecretFilePath("ApplicationCredentials"); ok {
@@ -41,7 +39,7 @@ func (c Credentials) Execute() (map[string]string, error) {
 		}
 	}
 
-	if b, ok, err := br.Resolve("StackdriverProfiler"); err != nil {
+	if b, ok, err := bindings.ResolveOne(c.Bindings, bindings.OfType("StackdriverProfiler")); err != nil {
 		return nil, fmt.Errorf("unable to resolve binding StackdriverProfiler\n%w", err)
 	} else if ok {
 		if p, ok := b.SecretFilePath("ApplicationCredentials"); ok {
