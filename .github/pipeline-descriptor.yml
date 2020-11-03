@@ -1,3 +1,5 @@
+github_token: ${{ secrets.JAVA_GITHUB_TOKEN }}
+
 codeowners:
 - path:  "*"
   owner: "@paketo-buildpacks/java-buildpacks"
@@ -19,7 +21,7 @@ dependencies:
     glob:       compute-java_debian-wheezy_cdbg_java_agent_gce\.tar
     owner:      GoogleCloudPlatform
     repository: cloud-debug-java
-    token:      ${{ secrets.GITHUB_TOKEN }}
+    token:      ${{ secrets.JAVA_GITHUB_TOKEN }}
 - id:   google-stackdriver-debugger-nodejs
   uses: docker://ghcr.io/paketo-buildpacks/actions/npm-dependency:main
   with:
