@@ -14,20 +14,30 @@
  * limitations under the License.
  */
 
-package main
+package credentials
 
 import (
-	"os"
+	"github.com/buildpacks/libcnb"
 
-	"github.com/paketo-buildpacks/libpak"
+	"github.com/paketo-buildpacks/google-cloud/internal/common"
 	"github.com/paketo-buildpacks/libpak/bard"
-
-	"github.com/paketo-buildpacks/google-cloud"
 )
 
-func main() {
-	libpak.Main(
-		google.Detect{},
-		google.Build{Logger: bard.NewLogger(os.Stdout)},
-	)
+type Launch struct {
+	Binding          libcnb.Binding
+	CredentialSource common.CredentialSource
+	Logger           bard.Logger
+}
+
+func (l Launch) Execute() (map[string]string, error) {
+	if l.CredentialSource == common.MetadataServer || l.CredentialSource == common.None {
+		return nil, nil
+	}
+
+	if p, ok := l.Binding.SecretFilePath("ApplicationCredentials"); ok {
+		l.Logger.Info("Configuring Google Cloud application credentials")
+		return map[string]string{"GOOGLE_APPLICATION_CREDENTIALS": p}, nil
+	}
+
+	return nil, nil
 }

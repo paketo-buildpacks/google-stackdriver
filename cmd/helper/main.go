@@ -18,34 +18,82 @@ package main
 
 import (
 	"fmt"
+	"net/http"
+	"net/url"
 	"os"
 
 	"github.com/buildpacks/libcnb"
-	"github.com/paketo-buildpacks/libpak/bard"
-	"github.com/paketo-buildpacks/libpak/sherpa"
 
-	"github.com/paketo-buildpacks/google-stackdriver/helper"
+	"github.com/paketo-buildpacks/google-cloud/credentials"
+	"github.com/paketo-buildpacks/google-cloud/debugger"
+	"github.com/paketo-buildpacks/google-cloud/internal/common"
+	"github.com/paketo-buildpacks/google-cloud/profiler"
+	"github.com/paketo-buildpacks/libpak/bard"
+	"github.com/paketo-buildpacks/libpak/bindings"
+	"github.com/paketo-buildpacks/libpak/sherpa"
 )
 
 func main() {
 	sherpa.Execute(func() error {
-		var (
-			err error
-			l   = bard.NewLogger(os.Stdout)
-			c   = helper.Credentials{Logger: l}
-			d   = helper.JavaDebugger{Logger: l}
-			p   = helper.JavaProfiler{Logger: l}
-		)
+		l := bard.NewLogger(os.Stdout)
 
-		c.Bindings, err = libcnb.NewBindingsFromEnvironment()
+		a, err := os.Getwd()
+		if err != nil {
+			return fmt.Errorf("unable to read working directory\n%w", err)
+		}
+
+		bs, err := libcnb.NewBindingsFromEnvironment()
 		if err != nil {
 			return fmt.Errorf("unable to read bindings from environment\n%w", err)
 		}
 
+		var (
+			b libcnb.Binding
+			c common.CredentialSource
+		)
+
+		if hasMetadataServer() {
+			c = common.MetadataServer
+		} else if g, ok, err := bindings.ResolveOne(bs, bindings.OfType("GoogleCloud")); err != nil {
+			return fmt.Errorf("unable to resolve GoogleCloud binding\n%w", err)
+		} else if ok {
+			b = g
+			c = common.Binding
+		} else {
+			c = common.None
+		}
+
 		return sherpa.Helpers(map[string]sherpa.ExecD{
-			"credentials":   c,
-			"java-debugger": d,
-			"java-profiler": p,
+			common.Credentials:    credentials.Launch{Binding: b, CredentialSource: c, Logger: l},
+			common.DebuggerJava:   debugger.JavaLaunch{CredentialSource: c, Logger: l},
+			common.DebuggerNodeJS: debugger.NodeJSLaunch{ApplicationPath: a, CredentialSource: c, Logger: l},
+			common.ProfilerJava:   profiler.JavaLaunch{CredentialSource: c, Logger: l},
+			common.ProfilerNodeJS: profiler.NodeJSLaunch{ApplicationPath: a, CredentialSource: c, Logger: l},
 		})
 	})
+}
+
+// hasMetadataServer detects whether the application has access to a Google Cloud metadata server.  Detection is based
+// on the existence of the metadata server as defined in
+// https://cloud.google.com/compute/docs/storing-retrieving-metadata#querying.
+func hasMetadataServer() bool {
+	client := &http.Client{
+		Transport: &http.Transport{
+			Proxy: func(req *http.Request) (*url.URL, error) { return nil, nil },
+		},
+	}
+
+	req, err := http.NewRequest("GET", "http://metadata.google.internal/computeMetadata/v1/", nil)
+	if err != nil {
+		return false
+	}
+	req.Header.Add("Metadata-Flavor", "Google")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return false
+	}
+	defer resp.Body.Close()
+
+	return resp.StatusCode == 200
 }

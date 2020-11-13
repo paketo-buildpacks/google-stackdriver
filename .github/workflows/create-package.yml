@@ -137,7 +137,7 @@ jobs:
                     --config "${HOME}"/package.toml
                 fi
               env:
-                PACKAGE: gcr.io/paketo-buildpacks/google-stackdriver
+                PACKAGE: gcr.io/paketo-buildpacks/google-cloud
                 PUBLISH: "true"
                 VERSION: ${{ steps.version.outputs.version }}
             - name: Update release with digest
@@ -164,7 +164,7 @@ jobs:
                 GITHUB_TOKEN: ${{ secrets.JAVA_GITHUB_TOKEN }}
             - uses: docker://ghcr.io/buildpacks/actions/registry:main
               with:
-                address: gcr.io/paketo-buildpacks/google-stackdriver@${{ steps.package.outputs.digest }}
-                id: paketo-buildpacks/google-stackdriver
+                address: gcr.io/paketo-buildpacks/google-cloud@${{ steps.package.outputs.digest }}
+                id: paketo-buildpacks/google-cloud
                 token: ${{ secrets.JAVA_GITHUB_TOKEN }}
                 version: ${{ steps.version.outputs.version }}

@@ -1,37 +1,43 @@
-# `gcr.io/paketo-buildpacks/google-stackdriver`
-The Paketo Google Stackdriver Buildpack is a Cloud Native Buildpack that contributes Stackdriver agents and configures them to connect to the service.
+# `paketo-buildpacks/google-cloud`
+The Paketo Google Cloud Buildpack is a Cloud Native Buildpack that contributes Google Cloud agents and configures them to connect to their services.
 
 ## Behavior
-This buildpack will participate if any of the following conditions are met
 
-* A binding exists with `type` of `StackdriverDebugger`
-* A binding exists with `type` of `StackdriverProfiler`
+* If `$BP_GOOGLE_CLOUD_DEBUGGER_ENABLED` is set to `true` and the application is Java
+  * At build time, contributes an agent to a layer
+  * At launch time, if credentials are available, configures the application to use the agent
+* If `$BP_GOOGLE_CLOUD_DEBUGGER_ENABLED` is set to `true` and the application is NodeJS
+  * At build time, contributes an agent to a layer
+  * At launch time, if credentials are available, configures `$NODE_MODULES` with the agent path.  If the main module does not already require `@google-cloud/debug-agent`, prepends the main module with `require('@google-cloud/debug-agent').start({...});`.
 
-The buildpack will do the following for Java applications:
+* If `$BP_GOOGLE_CLOUD_PROFILER_ENABLED` is set to `true` and the application is Java
+  * At build time, contributes an agent to a layer
+  * At launch time, if credentials are available, configures the application to use the agent
+* If `$BP_GOOGLE_CLOUD_PROFILER_ENABLED` is set to `true` and the application is NodeJS
+  * At build time, contributes an agent to a layer
+  * At launch time, if credentials are available, configures `$NODE_MODULES` with the agent path.  If the main module does not already require `@google-cloud/profiler`, prepends the main module with `require('@google-cloud/profiler').start({...});`.
 
-* If `StackdriverDebugger` binding exists contributes a Java debugger agent to a layer and configures `$JAVA_TOOL_OPTIONS` to use it
-* If `StackdriverProfiler` binding exists contributes a Java profiler agent to a layer and configures `$JAVA_TOOL_OPTIONS` to use it
-* Sets `$GOOGLE_APPLICATION_CREDENTIALS` to the path of the `ApplicationCredentials` secret
+### Credential Availability
+If the applications runs within Google Cloud and the [Google Metadata Service][m] is accessible, those credentials will be used.  If the application runs within any other environment, credentials must be provided with a service binding as described below.
 
-The buildpack will do the following for NodeJS applications:
-
-* If `StackdriverDebugger` binding exists
-  * Contributes a NodeJS debugger agent to a layer and configures `$NODE_MODULES` to use it
-  * If main module does not already require `@google-cloud/debug-agent` module, prepends the main module with `require('@google-cloud/debug-agent').start();`
-* If `StackdriverProfiler` binding exists
-  * Contributes a NodeJS profiler agent to a layer and configures `$NODE_MODULES` to use it
-  * If main module does not already require `@google-cloud/profiler` module, prepends the main module with `require('@google-cloud/profiler').start();`
-* Sets `$GOOGLE_APPLICATION_CREDENTIALS` to the path of the `ApplicationCredentials` secret
+[m]: https://cloud.google.com/compute/docs/storing-retrieving-metadata
 
 ## Configuration
 | Environment Variable | Description
 | -------------------- | -----------
-| `$BPL_GOOGLE_STACKDRIVER_MODULE` | Configure the name of the application.  Defaults to `default-module`.
-| `$BPL_GOOGLE_STACKDRIVER_VERSION` | Configure the project id for the application.  Defaults to `<EMPTY>`.
-| `$BPL_GOOGLE_STACKDRIVER_VERSION` | Configure the version of the application.  Defaults to `<EMPTY>`.
+| `$BP_GOOGLE_CLOUD_DEBUGGER_ENABLED` | Whether to add Google Cloud Debugger during build
+| `$BP_GOOGLE_CLOUD_PROFILER_ENABLED` | Whether to add Google Cloud Profiler during build 
+| `$BPL_GOOGLE_CLOUD_MODULE` | Configure the name of the application (required)
+| `$BPL_GOOGLE_CLOUD_PROJECT_ID` | Configure the project id for the application (required if running outside of Google Cloud)
+| `$BPL_GOOGLE_CLOUD_VERSION` | Configure the version of the application (required)
 
 ## Bindings
 The buildpack optionally accepts the following bindings:
+
+### Type: `GoogleCloud`
+|Key                      | Value            | Description
+|-------------------------|------------------|------------
+|`ApplicationCredentials` | `<JSON Payload>` | Google Cloud Application Credentials in JSON form
 
 ### Type: `dependency-mapping`
 |Key                   | Value   | Description

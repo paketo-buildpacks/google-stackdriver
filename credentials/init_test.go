@@ -14,20 +14,17 @@
  * limitations under the License.
  */
 
-package main
+package credentials_test
 
 import (
-	"os"
+	"testing"
 
-	"github.com/paketo-buildpacks/libpak"
-	"github.com/paketo-buildpacks/libpak/bard"
-
-	"github.com/paketo-buildpacks/google-cloud"
+	"github.com/sclevine/spec"
+	"github.com/sclevine/spec/report"
 )
 
-func main() {
-	libpak.Main(
-		google.Detect{},
-		google.Build{Logger: bard.NewLogger(os.Stdout)},
-	)
+func TestUnit(t *testing.T) {
+	suite := spec.New("credentials", spec.Report(report.Terminal{}))
+	suite("Credentials", testCredentials)
+	suite.Run(t)
 }
