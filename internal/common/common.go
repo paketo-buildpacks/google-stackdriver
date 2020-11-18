@@ -14,20 +14,26 @@
  * limitations under the License.
  */
 
-package main
+package common
 
-import (
-	"os"
-
-	"github.com/paketo-buildpacks/libpak"
-	"github.com/paketo-buildpacks/libpak/bard"
-
-	"github.com/paketo-buildpacks/google-cloud"
+const (
+	Module    = "BPL_GOOGLE_CLOUD_MODULE"
+	ProjectID = "BPL_GOOGLE_CLOUD_PROJECT_ID"
+	Version   = "BPL_GOOGLE_CLOUD_VERSION"
 )
 
-func main() {
-	libpak.Main(
-		google.Detect{},
-		google.Build{Logger: bard.NewLogger(os.Stdout)},
-	)
-}
+const (
+	Credentials    = "google-cloud-credentials"
+	DebuggerJava   = "google-cloud-debugger-java"
+	DebuggerNodeJS = "google-cloud-debugger-nodejs"
+	ProfilerJava   = "google-cloud-profiler-java"
+	ProfilerNodeJS = "google-cloud-profiler-nodejs"
+)
+
+type CredentialSource uint8
+
+const (
+	Binding CredentialSource = iota
+	MetadataServer
+	None
+)

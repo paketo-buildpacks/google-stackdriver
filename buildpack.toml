@@ -15,10 +15,10 @@
 api = "0.4"
 
 [buildpack]
-id       = "paketo-buildpacks/google-stackdriver"
-name     = "Paketo Google Stackdriver Buildpack"
+id       = "paketo-buildpacks/google-cloud"
+name     = "Paketo Google Cloud Buildpack"
 version  = "{{.version}}"
-homepage = "https://github.com/paketo-buildpacks/google-stackdriver"
+homepage = "https://github.com/paketo-buildpacks/google-cloud"
 
 [[stacks]]
 id = "io.buildpacks.stacks.bionic"
@@ -27,24 +27,33 @@ id = "io.buildpacks.stacks.bionic"
 id = "org.cloudfoundry.stacks.cflinuxfs3"
 
 [[metadata.configurations]]
-name        = "BPL_GOOGLE_STACKDRIVER_MODULE"
+name        = "BP_GOOGLE_CLOUD_DEBUGGER_ENABLED"
+description = "whether to contribute Google Cloud Debugger support"
+build       = true
+
+[[metadata.configurations]]
+name        = "BP_GOOGLE_CLOUD_PROFILER_ENABLED"
+description = "whether to contribute Google Cloud Profiler support"
+build       = true
+
+[[metadata.configurations]]
+name        = "BPL_GOOGLE_CLOUD_MODULE"
 description = "the name of the application"
-default     = "default-module"
 launch      = true
 
 [[metadata.configurations]]
-name        = "BPL_GOOGLE_STACKDRIVER_PROJECT_ID"
+name        = "BPL_GOOGLE_CLOUD_PROJECT_ID"
 description = "the project id for the application"
 launch      = true
 
 [[metadata.configurations]]
-name        = "BPL_GOOGLE_STACKDRIVER_VERSION"
+name        = "BPL_GOOGLE_CLOUD_VERSION"
 description = "the version of the application"
 launch      = true
 
 [[metadata.dependencies]]
-id      = "google-stackdriver-debugger-java"
-name    = "Google Stackdriver Debugger Java Agent"
+id      = "google-cloud-debugger-java"
+name    = "Google Cloud Debugger Java Agent"
 version = "2.26.0"
 uri     = "https://github.com/GoogleCloudPlatform/cloud-debug-java/releases/download/v2.26/compute-java_debian-wheezy_cdbg_java_agent_gce.tar"
 sha256  = "4fe2c6a55aa46805385817b4727d19cddf4cf9091348240fa89fedbbecd02211"
@@ -55,8 +64,8 @@ stacks  = [ "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3" 
   uri  = "https://github.com/GoogleCloudPlatform/cloud-debug-java/blob/master/LICENSE"
 
 [[metadata.dependencies]]
-id      = "google-stackdriver-debugger-nodejs"
-name    = "Google Stackdriver Debugger NodeJS Agent"
+id      = "google-cloud-debugger-nodejs"
+name    = "Google Cloud Debugger NodeJS Agent"
 version = "5.1.3"
 uri     = "https://registry.npmjs.org/@google-cloud/debug-agent/-/debug-agent-5.1.3.tgz"
 sha256  = "d6bfb81f34e264117585b0192c0378e26f6624fb1ca0578eb42576cbd0e537b2"
@@ -67,8 +76,8 @@ stacks  = [ "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3" 
   uri  = "https://github.com/googleapis/cloud-debug-nodejs/blob/master/LICENSE"
 
 [[metadata.dependencies]]
-id      = "google-stackdriver-profiler-java"
-name    = "Google Stackdriver Profiler Java Agent"
+id      = "google-cloud-profiler-java"
+name    = "Google Cloud Profiler Java Agent"
 version = "20201116.0.0"
 uri     = "https://storage.googleapis.com/cloud-profiler/java/cloud-profiler-java-agent_20201116_RC00.tar.gz"
 sha256  = "134a75b6620e136dd53b96e996e466fa86ffc891d46f90b97f4d68fab1cbf9ea"
@@ -79,8 +88,8 @@ stacks  = [ "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3" 
   uri  = "https://github.com/GoogleCloudPlatform/cloud-profiler-java/blob/master/LICENSE"
 
 [[metadata.dependencies]]
-id      = "google-stackdriver-profiler-nodejs"
-name    = "Google Stackdriver Profiler NodeJS Agent"
+id      = "google-cloud-profiler-nodejs"
+name    = "Google Cloud Profiler NodeJS Agent"
 version = "4.1.0"
 uri     = "https://registry.npmjs.org/@google-cloud/profiler/-/profiler-4.1.0.tgz"
 sha256  = "6f80f3a043dcbc79c6bfacc9ef2e3ae1980f77ad0c64bd96c90c98ec7db61f8d"

@@ -2,8 +2,8 @@
 
 set -euo pipefail
 
-GOOS="linux" go build -ldflags='-s -w' -o bin/helper github.com/paketo-buildpacks/google-stackdriver/cmd/helper
-GOOS="linux" go build -ldflags='-s -w' -o bin/main github.com/paketo-buildpacks/google-stackdriver/cmd/main
+GOOS="linux" go build -ldflags='-s -w' -o bin/helper github.com/paketo-buildpacks/google-cloud/cmd/helper
+GOOS="linux" go build -ldflags='-s -w' -o bin/main github.com/paketo-buildpacks/google-cloud/cmd/main
 
 strip bin/helper bin/main
 upx -q -9 bin/helper bin/main
