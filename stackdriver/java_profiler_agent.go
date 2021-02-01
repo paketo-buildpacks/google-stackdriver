@@ -32,8 +32,11 @@ type JavaProfilerAgent struct {
 	Logger           bard.Logger
 }
 
-func NewJavaProfilerAgent(dependency libpak.BuildpackDependency, cache libpak.DependencyCache, plan *libcnb.BuildpackPlan) JavaProfilerAgent {
-	return JavaProfilerAgent{LayerContributor: libpak.NewDependencyLayerContributor(dependency, cache, plan)}
+func NewJavaProfilerAgent(dependency libpak.BuildpackDependency, cache libpak.DependencyCache) (JavaProfilerAgent, libcnb.BOMEntry) {
+	contributor, entry := libpak.NewDependencyLayer(dependency, cache, libcnb.LayerTypes{
+		Launch: true,
+	})
+	return JavaProfilerAgent{LayerContributor: contributor}, entry
 }
 
 func (j JavaProfilerAgent) Contribute(layer libcnb.Layer) (libcnb.Layer, error) {
@@ -50,8 +53,7 @@ func (j JavaProfilerAgent) Contribute(layer libcnb.Layer) (libcnb.Layer, error) 
 			filepath.Join(layer.Path, "profiler_java_agent.so"))
 
 		return layer, nil
-	}, libpak.LaunchLayer)
-
+	})
 }
 
 func (j JavaProfilerAgent) Name() string {

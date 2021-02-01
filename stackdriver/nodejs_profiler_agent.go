@@ -37,12 +37,13 @@ type NodeJSProfilerAgent struct {
 	Logger           bard.Logger
 }
 
-func NewNodeJSProfilerAgent(applicationPath string, dependency libpak.BuildpackDependency, cache libpak.DependencyCache, plan *libcnb.BuildpackPlan) NodeJSProfilerAgent {
+func NewNodeJSProfilerAgent(applicationPath string, dependency libpak.BuildpackDependency, cache libpak.DependencyCache) (NodeJSProfilerAgent, libcnb.BOMEntry) {
+	contributor, entry := libpak.NewDependencyLayer(dependency, cache, libcnb.LayerTypes{Launch: true})
 	return NodeJSProfilerAgent{
 		ApplicationPath:  applicationPath,
 		Executor:         effect.NewExecutor(),
-		LayerContributor: libpak.NewDependencyLayerContributor(dependency, cache, plan),
-	}
+		LayerContributor: contributor,
+	}, entry
 }
 
 func (n NodeJSProfilerAgent) Contribute(layer libcnb.Layer) (libcnb.Layer, error) {
@@ -64,7 +65,7 @@ func (n NodeJSProfilerAgent) Contribute(layer libcnb.Layer) (libcnb.Layer, error
 		layer.LaunchEnvironment.Prepend("NODE_PATH", string(os.PathListSeparator), filepath.Join(layer.Path, "node_modules"))
 
 		return layer, nil
-	}, libpak.LaunchLayer)
+	})
 	if err != nil {
 		return libcnb.Layer{}, fmt.Errorf("unable to install node module\n%w", err)
 	}
