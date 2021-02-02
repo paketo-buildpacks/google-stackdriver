@@ -54,6 +54,10 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 		Expect(result.Layers[0].Name()).To(Equal("google-stackdriver-debugger-java"))
 		Expect(result.Layers[1].Name()).To(Equal("helper"))
 		Expect(result.Layers[1].(libpak.HelperLayerContributor).Names).To(Equal([]string{"credentials", "java-debugger"}))
+
+		Expect(len(result.BOM.Entries)).To(Equal(2))
+		Expect(result.BOM.Entries[0].Name).To(Equal("google-stackdriver-debugger-java"))
+		Expect(result.BOM.Entries[1].Name).To(Equal("helper"))
 	})
 
 	it("contributes NodeJS debugger agent", func() {
@@ -76,6 +80,10 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 		Expect(result.Layers[0].Name()).To(Equal("google-stackdriver-debugger-nodejs"))
 		Expect(result.Layers[1].Name()).To(Equal("helper"))
 		Expect(result.Layers[1].(libpak.HelperLayerContributor).Names).To(Equal([]string{"credentials"}))
+
+		Expect(len(result.BOM.Entries)).To(Equal(2))
+		Expect(result.BOM.Entries[0].Name).To(Equal("google-stackdriver-debugger-nodejs"))
+		Expect(result.BOM.Entries[1].Name).To(Equal("helper"))
 	})
 
 	it("contributes Java profiler agent", func() {
@@ -98,6 +106,10 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 		Expect(result.Layers[0].Name()).To(Equal("google-stackdriver-profiler-java"))
 		Expect(result.Layers[1].Name()).To(Equal("helper"))
 		Expect(result.Layers[1].(libpak.HelperLayerContributor).Names).To(Equal([]string{"credentials", "java-profiler"}))
+
+		Expect(len(result.BOM.Entries)).To(Equal(2))
+		Expect(result.BOM.Entries[0].Name).To(Equal("google-stackdriver-profiler-java"))
+		Expect(result.BOM.Entries[1].Name).To(Equal("helper"))
 	})
 
 	it("contributes NodeJS profiler agent", func() {
@@ -120,5 +132,9 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 		Expect(result.Layers[0].Name()).To(Equal("google-stackdriver-profiler-nodejs"))
 		Expect(result.Layers[1].Name()).To(Equal("helper"))
 		Expect(result.Layers[1].(libpak.HelperLayerContributor).Names).To(Equal([]string{"credentials"}))
+
+		Expect(len(result.BOM.Entries)).To(Equal(2))
+		Expect(result.BOM.Entries[0].Name).To(Equal("google-stackdriver-profiler-nodejs"))
+		Expect(result.BOM.Entries[1].Name).To(Equal("helper"))
 	})
 }

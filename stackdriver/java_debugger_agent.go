@@ -32,8 +32,11 @@ type JavaDebuggerAgent struct {
 	Logger           bard.Logger
 }
 
-func NewJavaDebuggerAgent(dependency libpak.BuildpackDependency, cache libpak.DependencyCache, plan *libcnb.BuildpackPlan) JavaDebuggerAgent {
-	return JavaDebuggerAgent{LayerContributor: libpak.NewDependencyLayerContributor(dependency, cache, plan)}
+func NewJavaDebuggerAgent(dependency libpak.BuildpackDependency, cache libpak.DependencyCache) (JavaDebuggerAgent, libcnb.BOMEntry) {
+	contributor, entry := libpak.NewDependencyLayer(dependency, cache, libcnb.LayerTypes{
+		Launch: true,
+	})
+	return JavaDebuggerAgent{LayerContributor: contributor}, entry
 }
 
 func (j JavaDebuggerAgent) Contribute(layer libcnb.Layer) (libcnb.Layer, error) {
@@ -50,7 +53,7 @@ func (j JavaDebuggerAgent) Contribute(layer libcnb.Layer) (libcnb.Layer, error) 
 			"-agentpath:%s=--logtostderr=1", filepath.Join(layer.Path, "cdbg_java_agent.so"))
 
 		return layer, nil
-	}, libpak.LaunchLayer)
+	})
 }
 
 func (j JavaDebuggerAgent) Name() string {

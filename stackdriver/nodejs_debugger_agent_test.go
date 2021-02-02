@@ -70,7 +70,10 @@ func testNodeJSDebuggerAgent(t *testing.T, context spec.G, it spec.S) {
 		}
 		dc := libpak.DependencyCache{CachePath: "testdata"}
 
-		n := stackdriver.NewNodeJSDebuggerAgent(ctx.Application.Path, dep, dc, &libcnb.BuildpackPlan{})
+		n, be := stackdriver.NewNodeJSDebuggerAgent(ctx.Application.Path, dep, dc)
+		Expect(be.Launch).To(BeTrue())
+		Expect(be.Metadata["uri"]).To(Equal("https://localhost/stub-stackdriver-debugger-agent.tgz"))
+
 		n.Executor = executor
 		layer, err := ctx.Layers.Layer("test-layer")
 		Expect(err).NotTo(HaveOccurred())
@@ -78,7 +81,7 @@ func testNodeJSDebuggerAgent(t *testing.T, context spec.G, it spec.S) {
 		layer, err = n.Contribute(layer)
 		Expect(err).NotTo(HaveOccurred())
 
-		Expect(layer.Launch).To(BeTrue())
+		Expect(layer.LayerTypes.Launch).To(BeTrue())
 
 		execution := executor.Calls[0].Arguments[0].(effect.Execution)
 		Expect(execution.Command).To(Equal("npm"))
@@ -103,7 +106,7 @@ func testNodeJSDebuggerAgent(t *testing.T, context spec.G, it spec.S) {
 		}
 		dc := libpak.DependencyCache{CachePath: "testdata"}
 
-		n := stackdriver.NewNodeJSDebuggerAgent(ctx.Application.Path, dep, dc, &libcnb.BuildpackPlan{})
+		n, _ := stackdriver.NewNodeJSDebuggerAgent(ctx.Application.Path, dep, dc)
 		n.Executor = executor
 		layer, err := ctx.Layers.Layer("test-layer")
 		Expect(err).NotTo(HaveOccurred())
@@ -127,7 +130,7 @@ func testNodeJSDebuggerAgent(t *testing.T, context spec.G, it spec.S) {
 		}
 		dc := libpak.DependencyCache{CachePath: "testdata"}
 
-		n := stackdriver.NewNodeJSDebuggerAgent(ctx.Application.Path, dep, dc, &libcnb.BuildpackPlan{})
+		n, _ := stackdriver.NewNodeJSDebuggerAgent(ctx.Application.Path, dep, dc)
 		n.Executor = executor
 		layer, err := ctx.Layers.Layer("test-layer")
 		Expect(err).NotTo(HaveOccurred())

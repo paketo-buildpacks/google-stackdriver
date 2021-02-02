@@ -59,10 +59,14 @@ func testJavaDebuggerAgent(t *testing.T, context spec.G, it spec.S) {
 		layer, err := ctx.Layers.Layer("test-layer")
 		Expect(err).NotTo(HaveOccurred())
 
-		layer, err = stackdriver.NewJavaDebuggerAgent(dep, dc, &libcnb.BuildpackPlan{}).Contribute(layer)
+		contrib, be := stackdriver.NewJavaDebuggerAgent(dep, dc)
+		Expect(be.Launch).To(BeTrue())
+		Expect(be.Metadata["uri"]).To(Equal("https://localhost/stub-stackdriver-debugger-agent.tar.gz"))
+
+		layer, err = contrib.Contribute(layer)
 		Expect(err).NotTo(HaveOccurred())
 
-		Expect(layer.Launch).To(BeTrue())
+		Expect(layer.LayerTypes.Launch).To(BeTrue())
 
 		file := filepath.Join(layer.Path, "cdbg_java_agent.so")
 		Expect(file).To(BeARegularFile())

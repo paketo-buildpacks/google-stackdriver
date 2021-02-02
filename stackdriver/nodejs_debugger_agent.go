@@ -37,12 +37,13 @@ type NodeJSDebuggerAgent struct {
 	Logger           bard.Logger
 }
 
-func NewNodeJSDebuggerAgent(applicationPath string, dependency libpak.BuildpackDependency, cache libpak.DependencyCache, plan *libcnb.BuildpackPlan) NodeJSDebuggerAgent {
+func NewNodeJSDebuggerAgent(applicationPath string, dependency libpak.BuildpackDependency, cache libpak.DependencyCache) (NodeJSDebuggerAgent, libcnb.BOMEntry) {
+	contributor, entry := libpak.NewDependencyLayer(dependency, cache, libcnb.LayerTypes{Launch: true})
 	return NodeJSDebuggerAgent{
 		ApplicationPath:  applicationPath,
 		Executor:         effect.NewExecutor(),
-		LayerContributor: libpak.NewDependencyLayerContributor(dependency, cache, plan),
-	}
+		LayerContributor: contributor,
+	}, entry
 }
 
 func (n NodeJSDebuggerAgent) Contribute(layer libcnb.Layer) (libcnb.Layer, error) {
@@ -64,7 +65,7 @@ func (n NodeJSDebuggerAgent) Contribute(layer libcnb.Layer) (libcnb.Layer, error
 		layer.LaunchEnvironment.Prepend("NODE_PATH", string(os.PathListSeparator), filepath.Join(layer.Path, "node_modules"))
 
 		return layer, nil
-	}, libpak.LaunchLayer)
+	})
 	if err != nil {
 		return libcnb.Layer{}, fmt.Errorf("unable to install node module\n%w", err)
 	}

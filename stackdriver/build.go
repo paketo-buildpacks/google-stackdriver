@@ -60,9 +60,10 @@ func (b Build) Build(context libcnb.BuildContext) (libcnb.BuildResult, error) {
 			return libcnb.BuildResult{}, fmt.Errorf("unable to find dependency\n%w", err)
 		}
 
-		ja := NewJavaDebuggerAgent(dep, dc, result.Plan)
+		ja, be := NewJavaDebuggerAgent(dep, dc)
 		ja.Logger = b.Logger
 		result.Layers = append(result.Layers, ja)
+		result.BOM.Entries = append(result.BOM.Entries, be)
 
 		names = append(names, "java-debugger")
 	}
@@ -75,9 +76,10 @@ func (b Build) Build(context libcnb.BuildContext) (libcnb.BuildResult, error) {
 			return libcnb.BuildResult{}, fmt.Errorf("unable to find dependency\n%w", err)
 		}
 
-		ja := NewNodeJSDebuggerAgent(context.Buildpack.Path, dep, dc, result.Plan)
+		ja, be := NewNodeJSDebuggerAgent(context.Buildpack.Path, dep, dc)
 		ja.Logger = b.Logger
 		result.Layers = append(result.Layers, ja)
+		result.BOM.Entries = append(result.BOM.Entries, be)
 	}
 
 	if _, ok, err := pr.Resolve("google-stackdriver-profiler-java"); err != nil {
@@ -88,9 +90,10 @@ func (b Build) Build(context libcnb.BuildContext) (libcnb.BuildResult, error) {
 			return libcnb.BuildResult{}, fmt.Errorf("unable to find dependency\n%w", err)
 		}
 
-		ja := NewJavaProfilerAgent(dep, dc, result.Plan)
+		ja, be := NewJavaProfilerAgent(dep, dc)
 		ja.Logger = b.Logger
 		result.Layers = append(result.Layers, ja)
+		result.BOM.Entries = append(result.BOM.Entries, be)
 
 		names = append(names, "java-profiler")
 	}
@@ -103,14 +106,16 @@ func (b Build) Build(context libcnb.BuildContext) (libcnb.BuildResult, error) {
 			return libcnb.BuildResult{}, fmt.Errorf("unable to find dependency\n%w", err)
 		}
 
-		ja := NewNodeJSProfilerAgent(context.Buildpack.Path, dep, dc, result.Plan)
+		ja, be := NewNodeJSProfilerAgent(context.Buildpack.Path, dep, dc)
 		ja.Logger = b.Logger
 		result.Layers = append(result.Layers, ja)
+		result.BOM.Entries = append(result.BOM.Entries, be)
 	}
 
-	h := libpak.NewHelperLayerContributor(context.Buildpack, result.Plan, names...)
+	h, be := libpak.NewHelperLayer(context.Buildpack, names...)
 	h.Logger = b.Logger
 	result.Layers = append(result.Layers, h)
+	result.BOM.Entries = append(result.BOM.Entries, be)
 
 	return result, nil
 }
