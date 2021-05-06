@@ -57,9 +57,9 @@ stacks  = [ "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3" 
 [[metadata.dependencies]]
 id      = "google-stackdriver-debugger-nodejs"
 name    = "Google Stackdriver Debugger NodeJS Agent"
-version = "5.1.3"
-uri     = "https://registry.npmjs.org/@google-cloud/debug-agent/-/debug-agent-5.1.3.tgz"
-sha256  = "d6bfb81f34e264117585b0192c0378e26f6624fb1ca0578eb42576cbd0e537b2"
+version = "5.2.0"
+uri     = "https://registry.npmjs.org/@google-cloud/debug-agent/-/debug-agent-5.2.0.tgz"
+sha256  = "6514b21a9cff51fe31d8b87e15a50a813c71611da720f86af65bd840720df920"
 stacks  = [ "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3" ]
 
   [[metadata.dependencies.licenses]]
