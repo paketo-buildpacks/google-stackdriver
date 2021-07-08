@@ -75,9 +75,9 @@ stacks  = [ "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3" 
 [[metadata.dependencies]]
 id      = "google-stackdriver-profiler-java"
 name    = "Google Stackdriver Profiler Java Agent"
-version = "20210621.0.0"
-uri     = "https://storage.googleapis.com/cloud-profiler/java/cloud-profiler-java-agent_20210621_RC00.tar.gz"
-sha256  = "caef001b39453d65b87e6d87855518886c4beb89767a793aae25360046cd325e"
+version = "20210705.0.0"
+uri     = "https://storage.googleapis.com/cloud-profiler/java/cloud-profiler-java-agent_20210705_RC00.tar.gz"
+sha256  = "55ee656e16bddab1cb6c7cee64a4ff46ea569a151a4a2fc2c5b0dbcfde8f40bb"
 stacks  = [ "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3" ]
 
   [[metadata.dependencies.licenses]]
