@@ -30,7 +30,10 @@ uri  = "https://github.com/paketo-buildpacks/google-stackdriver/blob/main/LICENS
 id = "io.buildpacks.stacks.bionic"
 
 [[stacks]]
-id = "org.cloudfoundry.stacks.cflinuxfs3"
+id = "io.paketo.stacks.tiny"
+
+[[stacks]]
+id = "*"
 
 [[metadata.configurations]]
 name        = "BPL_GOOGLE_STACKDRIVER_MODULE"
@@ -54,7 +57,7 @@ name    = "Google Stackdriver Debugger Java Agent"
 version = "2.27.0"
 uri     = "https://github.com/GoogleCloudPlatform/cloud-debug-java/releases/download/v2.27/compute-java_debian-wheezy_cdbg_java_agent_gce.tar"
 sha256  = "7dd22b3d1d81ccc2182816fe53dce9c8bf11692b8a45ceda0b1322df483bf327"
-stacks  = [ "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3" ]
+stacks  = [ "io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "*" ]
 
   [[metadata.dependencies.licenses]]
   type = "Apache-2.0"
@@ -66,7 +69,7 @@ name    = "Google Stackdriver Debugger NodeJS Agent"
 version = "5.2.7"
 uri     = "https://registry.npmjs.org/@google-cloud/debug-agent/-/debug-agent-5.2.7.tgz"
 sha256  = "e32165ae3f9e0a07f7d042ec8562d4666f0eb8578f09051f7f4e0601148ca4b8"
-stacks  = [ "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3" ]
+stacks  = [ "io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "*" ]
 
   [[metadata.dependencies.licenses]]
   type = "Apache-2.0"
@@ -78,7 +81,7 @@ name    = "Google Stackdriver Profiler Java Agent"
 version = "20210719.0.0"
 uri     = "https://storage.googleapis.com/cloud-profiler/java/cloud-profiler-java-agent_20210719_RC00.tar.gz"
 sha256  = "43e010fb350764efa0561b01835bc841f4bd6fcc05ed589542f0318a7ff6e2b6"
-stacks  = [ "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3" ]
+stacks  = [ "io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "*" ]
 
   [[metadata.dependencies.licenses]]
   type = "Apache-2.0"
@@ -90,7 +93,7 @@ name    = "Google Stackdriver Profiler NodeJS Agent"
 version = "4.1.3"
 uri     = "https://registry.npmjs.org/@google-cloud/profiler/-/profiler-4.1.3.tgz"
 sha256  = "c38ae69ca759183b0dac89747bd858ea6d7b26ed36c27cf434747462a82defa2"
-stacks  = [ "io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3" ]
+stacks  = [ "io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "*" ]
 
   [[metadata.dependencies.licenses]]
   type = "Apache-2.0"
