@@ -66,9 +66,9 @@ stacks  = [ "io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "*" ]
 [[metadata.dependencies]]
 id      = "google-stackdriver-debugger-nodejs"
 name    = "Google Stackdriver Debugger NodeJS Agent"
-version = "5.2.7"
-uri     = "https://registry.npmjs.org/@google-cloud/debug-agent/-/debug-agent-5.2.7.tgz"
-sha256  = "e32165ae3f9e0a07f7d042ec8562d4666f0eb8578f09051f7f4e0601148ca4b8"
+version = "5.2.8"
+uri     = "https://registry.npmjs.org/@google-cloud/debug-agent/-/debug-agent-5.2.8.tgz"
+sha256  = "e79f3f81d7f0097006950df5e6ce54de9feecd0e0527bc824510df0a32141281"
 stacks  = [ "io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "*" ]
 
   [[metadata.dependencies.licenses]]
@@ -78,9 +78,9 @@ stacks  = [ "io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "*" ]
 [[metadata.dependencies]]
 id      = "google-stackdriver-profiler-java"
 name    = "Google Stackdriver Profiler Java Agent"
-version = "20210719.0.0"
-uri     = "https://storage.googleapis.com/cloud-profiler/java/cloud-profiler-java-agent_20210719_RC00.tar.gz"
-sha256  = "43e010fb350764efa0561b01835bc841f4bd6fcc05ed589542f0318a7ff6e2b6"
+version = "20210809.0.0"
+uri     = "https://storage.googleapis.com/cloud-profiler/java/cloud-profiler-java-agent_20210809_RC00.tar.gz"
+sha256  = "f3ebea5fe92761df8c3c7ea62ef5ceeaca2b8fca7dbe3bc207f56b34bf9b1e4d"
 stacks  = [ "io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "*" ]
 
   [[metadata.dependencies.licenses]]
