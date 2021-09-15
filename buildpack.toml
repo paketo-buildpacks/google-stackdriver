@@ -90,9 +90,9 @@ stacks  = [ "io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "*" ]
 [[metadata.dependencies]]
 id      = "google-stackdriver-profiler-nodejs"
 name    = "Google Stackdriver Profiler NodeJS Agent"
-version = "4.1.3"
-uri     = "https://registry.npmjs.org/@google-cloud/profiler/-/profiler-4.1.3.tgz"
-sha256  = "c38ae69ca759183b0dac89747bd858ea6d7b26ed36c27cf434747462a82defa2"
+version = "4.1.4"
+uri     = "https://registry.npmjs.org/@google-cloud/profiler/-/profiler-4.1.4.tgz"
+sha256  = "3ec9159903a3de25b47a0536d3a3072e3d80164f601fe246d7b4a1cfdd1cde6a"
 stacks  = [ "io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "*" ]
 
   [[metadata.dependencies.licenses]]
