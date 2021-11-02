@@ -76,7 +76,7 @@ api = "0.6"
     sha256 = "96aaa901f9a1f772be1e6dba7a28013607bdd8800d605829ca7073e626970318"
     stacks = ["io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "*"]
     uri = "https://storage.googleapis.com/cloud-profiler/java/cloud-profiler-java-agent_20211101_RC00.tar.gz"
-    version = "20211101.0.0"
+    version = "2021.11.100"
 
     [[metadata.dependencies.licenses]]
       type = "Apache-2.0"
