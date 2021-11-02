@@ -73,10 +73,10 @@ api = "0.6"
   [[metadata.dependencies]]
     id = "google-stackdriver-profiler-java"
     name = "Google Stackdriver Profiler Java Agent"
-    sha256 = "567a6f7c49238358d1f14ab40e62b2f7a6a76a460557e17203b587487354172c"
+    sha256 = "96aaa901f9a1f772be1e6dba7a28013607bdd8800d605829ca7073e626970318"
     stacks = ["io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "*"]
-    uri = "https://storage.googleapis.com/cloud-profiler/java/cloud-profiler-java-agent_20211025_RC00.tar.gz"
-    version = "20211025.0.0"
+    uri = "https://storage.googleapis.com/cloud-profiler/java/cloud-profiler-java-agent_20211101_RC00.tar.gz"
+    version = "20211101.0.0"
 
     [[metadata.dependencies.licenses]]
       type = "Apache-2.0"
