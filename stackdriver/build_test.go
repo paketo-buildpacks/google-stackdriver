@@ -33,7 +33,7 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 
 		ctx libcnb.BuildContext
 	)
-
+	ctx.Buildpack.API = "0.6"
 	it("contributes Java debugger agent", func() {
 		ctx.Plan.Entries = append(ctx.Plan.Entries, libcnb.BuildpackPlanEntry{Name: "google-stackdriver-debugger-java"})
 		ctx.Buildpack.Metadata = map[string]interface{}{
