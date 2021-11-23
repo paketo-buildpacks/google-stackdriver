@@ -20,8 +20,8 @@ api = "0.7"
   id = "paketo-buildpacks/google-stackdriver"
   keywords = ["java", "node.js", "google-stackdriver"]
   name = "Paketo Google Stackdriver Buildpack"
-  version = "{{.version}}"
   sbom-formats = ["application/vnd.cyclonedx+json", "application/vnd.syft+json"]
+  version = "{{.version}}"
 
   [[buildpack.licenses]]
     type = "Apache-2.0"
@@ -48,64 +48,56 @@ api = "0.7"
     name = "BPL_GOOGLE_STACKDRIVER_VERSION"
 
   [[metadata.dependencies]]
+    cpes = ["cpe:2.3:a:google:google-stackdriver-debugger-java:2.27.0:*:*:*:*:*:*:*"]
     id = "google-stackdriver-debugger-java"
     name = "Google Stackdriver Debugger Java Agent"
+    purl = "pkg:generic/google-stackdriver-debugger-java@2.27.0"
     sha256 = "7dd22b3d1d81ccc2182816fe53dce9c8bf11692b8a45ceda0b1322df483bf327"
     stacks = ["io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "*"]
     uri = "https://github.com/GoogleCloudPlatform/cloud-debug-java/releases/download/v2.27/compute-java_debian-wheezy_cdbg_java_agent_gce.tar"
     version = "2.27.0"
-    purl = "pkg:generic/google-stackdriver-debugger-java@2.27.0"
-    cpes = [
-      "cpe:2.3:a:google:google-stackdriver-debugger-java:2.27.0:*:*:*:*:*:*:*"
-    ]
 
     [[metadata.dependencies.licenses]]
       type = "Apache-2.0"
       uri = "https://github.com/GoogleCloudPlatform/cloud-debug-java/blob/master/LICENSE"
 
   [[metadata.dependencies]]
+    cpes = ["cpe:2.3:a:google:google-stackdriver-debugger-nodejs:5.2.8:*:*:*:*:*:*:*"]
     id = "google-stackdriver-debugger-nodejs"
     name = "Google Stackdriver Debugger NodeJS Agent"
+    purl = "pkg:generic/google-stackdriver-debugger-nodejs@5.2.8"
     sha256 = "e79f3f81d7f0097006950df5e6ce54de9feecd0e0527bc824510df0a32141281"
     stacks = ["io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "*"]
     uri = "https://registry.npmjs.org/@google-cloud/debug-agent/-/debug-agent-5.2.8.tgz"
     version = "5.2.8"
-    purl = "pkg:generic/google-stackdriver-debugger-nodejs@5.2.8"
-    cpes = [
-      "cpe:2.3:a:google:google-stackdriver-debugger-nodejs:5.2.8:*:*:*:*:*:*:*"
-    ]
 
     [[metadata.dependencies.licenses]]
       type = "Apache-2.0"
       uri = "https://github.com/googleapis/cloud-debug-nodejs/blob/master/LICENSE"
 
   [[metadata.dependencies]]
+    cpes = ["cpe:2.3:a:google:google-stackdriver-profiler-java:2021.11.1500:*:*:*:*:*:*:*"]
     id = "google-stackdriver-profiler-java"
     name = "Google Stackdriver Profiler Java Agent"
+    purl = "pkg:generic/google-stackdriver-profiler-java@2021.11.1500"
     sha256 = "6ef4b28bca68c24edd0ac687303a58b64833b7f0f40d10677d449627ccff2e2b"
     stacks = ["io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "*"]
     uri = "https://storage.googleapis.com/cloud-profiler/java/cloud-profiler-java-agent_20211115_RC00.tar.gz"
     version = "2021.11.1500"
-    purl = "pkg:generic/google-stackdriver-profiler-java@2021.11.1500"
-    cpes = [
-      "cpe:2.3:a:google:google-stackdriver-profiler-java:2021.11.1500:*:*:*:*:*:*:*"
-    ]
 
     [[metadata.dependencies.licenses]]
       type = "Apache-2.0"
       uri = "https://github.com/GoogleCloudPlatform/cloud-profiler-java/blob/master/LICENSE"
 
   [[metadata.dependencies]]
+    cpes = ["cpe:2.3:a:google:google-stackdriver-profiler-nodejs:4.1.5:*:*:*:*:*:*:*"]
     id = "google-stackdriver-profiler-nodejs"
     name = "Google Stackdriver Profiler NodeJS Agent"
+    purl = "pkg:generic/google-stackdriver-profiler-nodejs@4.1.5"
     sha256 = "cfcebc4c5153c6f21bb438027c5c6e00ae43b97e29b79175d7f78e0bf91f485c"
     stacks = ["io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "*"]
     uri = "https://registry.npmjs.org/@google-cloud/profiler/-/profiler-4.1.5.tgz"
     version = "4.1.5"
-    purl = "pkg:generic/google-stackdriver-profiler-nodejs@4.1.5"
-    cpes = [
-      "cpe:2.3:a:google:google-stackdriver-profiler-nodejs:4.1.5:*:*:*:*:*:*:*"
-    ]
 
     [[metadata.dependencies.licenses]]
       type = "Apache-2.0"
