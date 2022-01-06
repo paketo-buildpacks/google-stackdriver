@@ -20,7 +20,7 @@ dependencies:
 - id:   google-stackdriver-debugger-java
   uses: docker://ghcr.io/paketo-buildpacks/actions/github-release-dependency:main
   with:
-    glob:       compute-java_debian-wheezy_cdbg_java_agent_gce\.tar
+    glob:       cdbg_java_agent_gce\.tar\.gz
     owner:      GoogleCloudPlatform
     repository: cloud-debug-java
     token:      ${{ secrets.JAVA_GITHUB_TOKEN }}
