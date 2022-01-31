@@ -63,9 +63,7 @@ func (b Build) Build(context libcnb.BuildContext) (libcnb.BuildResult, error) {
 		ja, be := NewJavaDebuggerAgent(dep, dc)
 		ja.Logger = b.Logger
 		result.Layers = append(result.Layers, ja)
-		if be.Name != "" {
-			result.BOM.Entries = append(result.BOM.Entries, be)
-		}
+		result.BOM.Entries = append(result.BOM.Entries, be)
 
 		names = append(names, "java-debugger")
 	}
@@ -81,9 +79,7 @@ func (b Build) Build(context libcnb.BuildContext) (libcnb.BuildResult, error) {
 		ja, be := NewNodeJSDebuggerAgent(context.Buildpack.Path, dep, dc)
 		ja.Logger = b.Logger
 		result.Layers = append(result.Layers, ja)
-		if be.Name != "" {
-			result.BOM.Entries = append(result.BOM.Entries, be)
-		}
+		result.BOM.Entries = append(result.BOM.Entries, be)
 	}
 
 	if _, ok, err := pr.Resolve("google-stackdriver-profiler-java"); err != nil {
@@ -97,9 +93,7 @@ func (b Build) Build(context libcnb.BuildContext) (libcnb.BuildResult, error) {
 		ja, be := NewJavaProfilerAgent(dep, dc)
 		ja.Logger = b.Logger
 		result.Layers = append(result.Layers, ja)
-		if be.Name != "" {
-			result.BOM.Entries = append(result.BOM.Entries, be)
-		}
+		result.BOM.Entries = append(result.BOM.Entries, be)
 
 		names = append(names, "java-profiler")
 	}
@@ -115,17 +109,13 @@ func (b Build) Build(context libcnb.BuildContext) (libcnb.BuildResult, error) {
 		ja, be := NewNodeJSProfilerAgent(context.Buildpack.Path, dep, dc)
 		ja.Logger = b.Logger
 		result.Layers = append(result.Layers, ja)
-		if be.Name != "" {
-			result.BOM.Entries = append(result.BOM.Entries, be)
-		}
+		result.BOM.Entries = append(result.BOM.Entries, be)
 	}
 
 	h, be := libpak.NewHelperLayer(context.Buildpack, names...)
 	h.Logger = b.Logger
 	result.Layers = append(result.Layers, h)
-	if be.Name != "" {
-		result.BOM.Entries = append(result.BOM.Entries, be)
-	}
+	result.BOM.Entries = append(result.BOM.Entries, be)
 
 	return result, nil
 }
