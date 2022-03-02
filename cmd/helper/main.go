@@ -24,7 +24,7 @@ import (
 	"github.com/paketo-buildpacks/libpak/bard"
 	"github.com/paketo-buildpacks/libpak/sherpa"
 
-	"github.com/paketo-buildpacks/google-stackdriver/helper"
+	"github.com/paketo-buildpacks/google-stackdriver/v5/helper"
 )
 
 func main() {

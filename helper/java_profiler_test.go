@@ -23,7 +23,7 @@ import (
 	. "github.com/onsi/gomega"
 	"github.com/sclevine/spec"
 
-	"github.com/paketo-buildpacks/google-stackdriver/helper"
+	"github.com/paketo-buildpacks/google-stackdriver/v5/helper"
 )
 
 func testJavaProfiler(t *testing.T, context spec.G, it spec.S) {
