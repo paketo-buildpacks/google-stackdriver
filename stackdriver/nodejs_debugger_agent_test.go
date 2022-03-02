@@ -30,7 +30,7 @@ import (
 	"github.com/sclevine/spec"
 	"github.com/stretchr/testify/mock"
 
-	"github.com/paketo-buildpacks/google-stackdriver/stackdriver"
+	"github.com/paketo-buildpacks/google-stackdriver/v5/stackdriver"
 )
 
 func testNodeJSDebuggerAgent(t *testing.T, context spec.G, it spec.S) {

@@ -2,8 +2,8 @@
 
 set -euo pipefail
 
-GOOS="linux" go build -ldflags='-s -w' -o bin/helper github.com/paketo-buildpacks/google-stackdriver/cmd/helper
-GOOS="linux" go build -ldflags='-s -w' -o bin/main github.com/paketo-buildpacks/google-stackdriver/cmd/main
+GOOS="linux" go build -ldflags='-s -w' -o bin/helper github.com/paketo-buildpacks/google-stackdriver/v5/cmd/helper
+GOOS="linux" go build -ldflags='-s -w' -o bin/main github.com/paketo-buildpacks/google-stackdriver/v5/cmd/main
 
 if [ "${STRIP:-false}" != "false" ]; then
   strip bin/helper bin/main

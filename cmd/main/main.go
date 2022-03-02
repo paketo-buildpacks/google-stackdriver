@@ -22,7 +22,7 @@ import (
 	"github.com/paketo-buildpacks/libpak"
 	"github.com/paketo-buildpacks/libpak/bard"
 
-	"github.com/paketo-buildpacks/google-stackdriver/stackdriver"
+	"github.com/paketo-buildpacks/google-stackdriver/v5/stackdriver"
 )
 
 func main() {
