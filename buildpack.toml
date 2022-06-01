@@ -76,14 +76,14 @@ api = "0.7"
       uri = "https://github.com/googleapis/cloud-debug-nodejs/blob/master/LICENSE"
 
   [[metadata.dependencies]]
-    cpes = ["cpe:2.3:a:google:google-stackdriver-profiler-java:2022.5.2300:*:*:*:*:*:*:*"]
+    cpes = ["cpe:2.3:a:google:google-stackdriver-profiler-java:2022.5.3000:*:*:*:*:*:*:*"]
     id = "google-stackdriver-profiler-java"
     name = "Google Stackdriver Profiler Java Agent"
-    purl = "pkg:generic/google-stackdriver-profiler-java@2022.5.2300"
-    sha256 = "9278b536b67431eaa69fec1e9b2ac712adc2fc1ff47c955924651129c73fbe80"
+    purl = "pkg:generic/google-stackdriver-profiler-java@2022.5.3000"
+    sha256 = "c6427466ba370220f34ffbe7c2c225ab13fbd6d8e13e2a1037d6849a021c3813"
     stacks = ["io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "*"]
-    uri = "https://storage.googleapis.com/cloud-profiler/java/cloud-profiler-java-agent_20220523_RC00.tar.gz"
-    version = "2022.5.2300"
+    uri = "https://storage.googleapis.com/cloud-profiler/java/cloud-profiler-java-agent_20220530_RC00.tar.gz"
+    version = "2022.5.3000"
 
     [[metadata.dependencies.licenses]]
       type = "Apache-2.0"
