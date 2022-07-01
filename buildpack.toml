@@ -62,14 +62,14 @@ api = "0.7"
       uri = "https://github.com/GoogleCloudPlatform/cloud-debug-java/blob/master/LICENSE"
 
   [[metadata.dependencies]]
-    cpes = ["cpe:2.3:a:google:google-stackdriver-debugger-nodejs:6.0.1:*:*:*:*:*:*:*"]
+    cpes = ["cpe:2.3:a:google:google-stackdriver-debugger-nodejs:7.0.0:*:*:*:*:*:*:*"]
     id = "google-stackdriver-debugger-nodejs"
     name = "Google Stackdriver Debugger NodeJS Agent"
-    purl = "pkg:generic/google-stackdriver-debugger-nodejs@6.0.1"
-    sha256 = "b039e00acf4c9b766cd6e925fcddc7a40b0b348a1018a7a1ba27628380577927"
+    purl = "pkg:generic/google-stackdriver-debugger-nodejs@7.0.0"
+    sha256 = "4b7b4129a762429f19469161f62c8b559489ce13be5f0f5d262355d286165777"
     stacks = ["io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "*"]
-    uri = "https://registry.npmjs.org/@google-cloud/debug-agent/-/debug-agent-6.0.1.tgz"
-    version = "6.0.1"
+    uri = "https://registry.npmjs.org/@google-cloud/debug-agent/-/debug-agent-7.0.0.tgz"
+    version = "7.0.0"
 
     [[metadata.dependencies.licenses]]
       type = "Apache-2.0"
