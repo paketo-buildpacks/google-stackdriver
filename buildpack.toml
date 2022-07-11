@@ -90,14 +90,14 @@ api = "0.7"
       uri = "https://github.com/GoogleCloudPlatform/cloud-profiler-java/blob/master/LICENSE"
 
   [[metadata.dependencies]]
-    cpes = ["cpe:2.3:a:google:google-stackdriver-profiler-nodejs:5.0.0:*:*:*:*:*:*:*"]
+    cpes = ["cpe:2.3:a:google:google-stackdriver-profiler-nodejs:5.0.1:*:*:*:*:*:*:*"]
     id = "google-stackdriver-profiler-nodejs"
     name = "Google Stackdriver Profiler NodeJS Agent"
-    purl = "pkg:generic/google-stackdriver-profiler-nodejs@5.0.0"
-    sha256 = "dbf8cb9c8f5be1305d062e1f31dc81ee80be28e8e903d61925cc96c0a0c05310"
+    purl = "pkg:generic/google-stackdriver-profiler-nodejs@5.0.1"
+    sha256 = "365f948e457d6b3470175f1ed604641e82370bd472c62ee46b7f8542ddaf1792"
     stacks = ["io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "*"]
-    uri = "https://registry.npmjs.org/@google-cloud/profiler/-/profiler-5.0.0.tgz"
-    version = "5.0.0"
+    uri = "https://registry.npmjs.org/@google-cloud/profiler/-/profiler-5.0.1.tgz"
+    version = "5.0.1"
 
     [[metadata.dependencies.licenses]]
       type = "Apache-2.0"
