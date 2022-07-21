@@ -27,7 +27,7 @@ The buildpack will do the following for NodeJS applications:
 | Environment Variable | Description
 | -------------------- | -----------
 | `$BPL_GOOGLE_STACKDRIVER_MODULE` | Configure the name of the application.  Defaults to `default-module`.
-| `$BPL_GOOGLE_STACKDRIVER_VERSION` | Configure the project id for the application.  Defaults to `<EMPTY>`.
+| `$BPL_GOOGLE_STACKDRIVER_PROJECT_ID` | Configure the project id for the application.  Defaults to `<EMPTY>`.
 | `$BPL_GOOGLE_STACKDRIVER_VERSION` | Configure the version of the application.  Defaults to `<EMPTY>`.
 
 ## Bindings
