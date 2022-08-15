@@ -48,14 +48,14 @@ api = "0.7"
     name = "BPL_GOOGLE_STACKDRIVER_VERSION"
 
   [[metadata.dependencies]]
-    cpes = ["cpe:2.3:a:google:google-stackdriver-debugger-java:2.31.0:*:*:*:*:*:*:*"]
+    cpes = ["cpe:2.3:a:google:google-stackdriver-debugger-java:2.32.0:*:*:*:*:*:*:*"]
     id = "google-stackdriver-debugger-java"
     name = "Google Stackdriver Debugger Java Agent"
-    purl = "pkg:generic/google-stackdriver-debugger-java@2.31.0"
-    sha256 = "4d112157a4e8dfbcea2448cd775e45395c47509e7b154a9a713fddae0bdfcf15"
+    purl = "pkg:generic/google-stackdriver-debugger-java@2.32.0"
+    sha256 = "4db2799530c81efaf85dcc09ea4c8770be1c409d383f5c112e6235c2db2bcbc2"
     stacks = ["io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "*"]
-    uri = "https://github.com/GoogleCloudPlatform/cloud-debug-java/releases/download/v2.31/cdbg_java_agent_gce.tar.gz"
-    version = "2.31.0"
+    uri = "https://github.com/GoogleCloudPlatform/cloud-debug-java/releases/download/v2.32/cdbg_java_agent_gce.tar.gz"
+    version = "2.32.0"
 
     [[metadata.dependencies.licenses]]
       type = "Apache-2.0"
