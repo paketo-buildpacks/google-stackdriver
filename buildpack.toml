@@ -19,7 +19,7 @@ api = "0.7"
   homepage = "https://github.com/paketo-buildpacks/google-stackdriver"
   id = "paketo-buildpacks/google-stackdriver"
   keywords = ["java", "node.js", "google-stackdriver"]
-  name = "Paketo Google Stackdriver Buildpack"
+  name = "Paketo Buildpack for Google Stackdriver"
   sbom-formats = ["application/vnd.cyclonedx+json", "application/vnd.syft+json"]
   version = "{{.version}}"
 
