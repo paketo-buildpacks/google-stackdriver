@@ -21,9 +21,12 @@ import (
 
 	"github.com/buildpacks/libcnb"
 	"github.com/paketo-buildpacks/libpak/bindings"
+	"github.com/paketo-buildpacks/libpak/bard"
 )
 
-type Detect struct{}
+type Detect struct{
+	Logger bard.Logger
+}
 
 func (d Detect) Detect(context libcnb.DetectContext) (libcnb.DetectResult, error) {
 	result := libcnb.DetectResult{Pass: false}
@@ -53,6 +56,7 @@ func (d Detect) Detect(context libcnb.DetectContext) (libcnb.DetectResult, error
 				},
 			},
 		)
+		d.Logger.Info("PASSED: binding of type 'StackdriverDebugger' found")
 	}
 
 	if _, ok, err := bindings.ResolveOne(context.Platform.Bindings, bindings.OfType("StackdriverProfiler")); err != nil {
@@ -80,7 +84,11 @@ func (d Detect) Detect(context libcnb.DetectContext) (libcnb.DetectResult, error
 				},
 			},
 		)
+		d.Logger.Info("PASSED: binding of type 'StackdriverProfiler' found")
 	}
 
+	if result.Pass != true {
+		d.Logger.Info("SKIPPED: no bindings of type 'StackdriverDebugger' or 'StackdriverProfiler' found")
+	}
 	return result, nil
 }
