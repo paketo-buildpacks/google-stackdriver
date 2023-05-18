@@ -26,8 +26,9 @@ import (
 )
 
 func main() {
+	logger := bard.NewLogger(os.Stdout)
 	libpak.Main(
-		stackdriver.Detect{},
-		stackdriver.Build{Logger: bard.NewLogger(os.Stdout)},
+		stackdriver.Detect{Logger: logger},
+		stackdriver.Build{Logger: logger},
 	)
 }
