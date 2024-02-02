@@ -64,16 +64,16 @@ api = "0.7"
       uri = "https://github.com/GoogleCloudPlatform/cloud-debug-java/blob/master/LICENSE"
 
   [[metadata.dependencies]]
-    cpes = ["cpe:2.3:a:google:google-stackdriver-debugger-nodejs:8.0.0:*:*:*:*:*:*:*"]
+    cpes = ["cpe:2.3:a:google:google-stackdriver-debugger-nodejs:9.0.1:*:*:*:*:*:*:*"]
     id = "google-stackdriver-debugger-nodejs"
     name = "Google Stackdriver Debugger NodeJS Agent"
-    purl = "pkg:generic/google-stackdriver-debugger-nodejs@8.0.0"
-    sha256 = "735610224f532df1d94637fb21f60bad44a28d14e8bbb7c8ff30ba9ab32bc214"
-    source = "https://registry.npmjs.org/@google-cloud/debug-agent/-/debug-agent-8.0.0.tgz"
-    source-sha256 = "735610224f532df1d94637fb21f60bad44a28d14e8bbb7c8ff30ba9ab32bc214"
+    purl = "pkg:generic/google-stackdriver-debugger-nodejs@9.0.1"
+    sha256 = "826a0a542d6cd148458c01bdf1b297018a8203712609f7895d786228c77801c3"
+    source = "https://registry.npmjs.org/@google-cloud/debug-agent/-/debug-agent-9.0.1.tgz"
+    source-sha256 = "826a0a542d6cd148458c01bdf1b297018a8203712609f7895d786228c77801c3"
     stacks = ["io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "*"]
-    uri = "https://registry.npmjs.org/@google-cloud/debug-agent/-/debug-agent-8.0.0.tgz"
-    version = "8.0.0"
+    uri = "https://registry.npmjs.org/@google-cloud/debug-agent/-/debug-agent-9.0.1.tgz"
+    version = "9.0.1"
 
     [[metadata.dependencies.licenses]]
       type = "Apache-2.0"
