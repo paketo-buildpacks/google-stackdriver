@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2020 the original author or authors.
+ * Copyright 2018-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@ package stackdriver
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -76,7 +75,7 @@ func (n NodeJSProfilerAgent) Contribute(layer libcnb.Layer) (libcnb.Layer, error
 	}
 
 	file := filepath.Join(n.ApplicationPath, m)
-	c, err := ioutil.ReadFile(file)
+	c, err := os.ReadFile(file)
 	if err != nil {
 		return libcnb.Layer{}, fmt.Errorf("unable to read contents of %s\n%w", file, err)
 	}
@@ -84,7 +83,7 @@ func (n NodeJSProfilerAgent) Contribute(layer libcnb.Layer) (libcnb.Layer, error
 	if !regexp.MustCompile(`require\(['"]@google-cloud/profiler['"]\)`).Match(c) {
 		n.Logger.Header("Requiring '@google-cloud/profiler' module")
 
-		if err := ioutil.WriteFile(file, append([]byte("require('@google-cloud/profiler').start();\n"), c...), 0644); err != nil {
+		if err := os.WriteFile(file, append([]byte("require('@google-cloud/profiler').start();\n"), c...), 0644); err != nil {
 			return libcnb.Layer{}, fmt.Errorf("unable to write main module %s\n%w", file, err)
 		}
 	}

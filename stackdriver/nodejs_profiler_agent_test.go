@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2020 the original author or authors.
+ * Copyright 2018-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@
 package stackdriver_test
 
 import (
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"testing"
@@ -44,25 +43,20 @@ func testNodeJSProfilerAgent(t *testing.T, context spec.G, it spec.S) {
 	it.Before(func() {
 		var err error
 
-		ctx.Application.Path, err = ioutil.TempDir("", "nodejs-profiler-agent-application")
+		ctx.Application.Path = t.TempDir()
 		Expect(err).NotTo(HaveOccurred())
 
-		ctx.Layers.Path, err = ioutil.TempDir("", "nodejs-profiler-agent-layers")
+		ctx.Layers.Path = t.TempDir()
 		Expect(err).NotTo(HaveOccurred())
 
 		executor = &mocks.Executor{}
 		executor.On("Execute", mock.Anything).Return(nil)
 	})
 
-	it.After(func() {
-		Expect(os.RemoveAll(ctx.Application.Path)).To(Succeed())
-		Expect(os.RemoveAll(ctx.Layers.Path)).To(Succeed())
-	})
-
 	it("contributes NodeJS agent", func() {
-		Expect(ioutil.WriteFile(filepath.Join(ctx.Application.Path, "package.json"), []byte(`{ "main": "main.js" }`),
+		Expect(os.WriteFile(filepath.Join(ctx.Application.Path, "package.json"), []byte(`{ "main": "main.js" }`),
 			0644)).To(Succeed())
-		Expect(ioutil.WriteFile(filepath.Join(ctx.Application.Path, "main.js"), []byte{}, 0644)).To(Succeed())
+		Expect(os.WriteFile(filepath.Join(ctx.Application.Path, "main.js"), []byte{}, 0644)).To(Succeed())
 
 		dep := libpak.BuildpackDependency{
 			URI:    "https://localhost/stub-stackdriver-profiler-agent.tgz",
@@ -96,9 +90,9 @@ func testNodeJSProfilerAgent(t *testing.T, context spec.G, it spec.S) {
 	})
 
 	it("requires @google-cloud/profiler module", func() {
-		Expect(ioutil.WriteFile(filepath.Join(ctx.Application.Path, "package.json"), []byte(`{ "main": "main.js" }`),
+		Expect(os.WriteFile(filepath.Join(ctx.Application.Path, "package.json"), []byte(`{ "main": "main.js" }`),
 			0644)).To(Succeed())
-		Expect(ioutil.WriteFile(filepath.Join(ctx.Application.Path, "main.js"), []byte("test"), 0644)).To(Succeed())
+		Expect(os.WriteFile(filepath.Join(ctx.Application.Path, "main.js"), []byte("test"), 0644)).To(Succeed())
 
 		dep := libpak.BuildpackDependency{
 			URI:    "https://localhost/stub-stackdriver-profiler-agent.tgz",
@@ -112,17 +106,17 @@ func testNodeJSProfilerAgent(t *testing.T, context spec.G, it spec.S) {
 		layer, err := ctx.Layers.Layer("test-layer")
 		Expect(err).NotTo(HaveOccurred())
 
-		layer, err = n.Contribute(layer)
+		_, err = n.Contribute(layer)
 		Expect(err).NotTo(HaveOccurred())
 
-		Expect(ioutil.ReadFile(filepath.Join(ctx.Application.Path, "main.js"))).To(Equal(
+		Expect(os.ReadFile(filepath.Join(ctx.Application.Path, "main.js"))).To(Equal(
 			[]byte("require('@google-cloud/profiler').start();\ntest")))
 	})
 
 	it("does not require @google-cloud/profiler module", func() {
-		Expect(ioutil.WriteFile(filepath.Join(ctx.Application.Path, "package.json"), []byte(`{ "main": "main.js" }`),
+		Expect(os.WriteFile(filepath.Join(ctx.Application.Path, "package.json"), []byte(`{ "main": "main.js" }`),
 			0644)).To(Succeed())
-		Expect(ioutil.WriteFile(filepath.Join(ctx.Application.Path, "main.js"),
+		Expect(os.WriteFile(filepath.Join(ctx.Application.Path, "main.js"),
 			[]byte("test\nrequire('@google-cloud/profiler')\ntest"), 0644)).To(Succeed())
 
 		dep := libpak.BuildpackDependency{
@@ -136,10 +130,10 @@ func testNodeJSProfilerAgent(t *testing.T, context spec.G, it spec.S) {
 		layer, err := ctx.Layers.Layer("test-layer")
 		Expect(err).NotTo(HaveOccurred())
 
-		layer, err = n.Contribute(layer)
+		_, err = n.Contribute(layer)
 		Expect(err).NotTo(HaveOccurred())
 
-		Expect(ioutil.ReadFile(filepath.Join(ctx.Application.Path, "main.js"))).To(Equal(
+		Expect(os.ReadFile(filepath.Join(ctx.Application.Path, "main.js"))).To(Equal(
 			[]byte("test\nrequire('@google-cloud/profiler')\ntest")))
 	})
 }

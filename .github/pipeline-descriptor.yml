@@ -20,17 +20,6 @@ docker_credentials:
   password: ${{ secrets.PAKETO_BUILDPACKS_DOCKERHUB_PASSWORD }}
 
 dependencies:
-- id:   google-stackdriver-debugger-java
-  uses: docker://ghcr.io/paketo-buildpacks/actions/github-release-dependency:main
-  with:
-    glob:       cdbg_java_agent_gce\.tar\.gz
-    owner:      GoogleCloudPlatform
-    repository: cloud-debug-java
-    token:      ${{ secrets.PAKETO_BOT_GITHUB_TOKEN }}
-- id:   google-stackdriver-debugger-nodejs
-  uses: docker://ghcr.io/paketo-buildpacks/actions/npm-dependency:main
-  with:
-    package: "@google-cloud/debug-agent"
 - id:   google-stackdriver-profiler-java
   uses: docker://ghcr.io/paketo-buildpacks/actions/google-stackdriver-profiler-dependency:main
 - id:   google-stackdriver-profiler-nodejs

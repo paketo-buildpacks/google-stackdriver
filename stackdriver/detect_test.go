@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2020 the original author or authors.
+ * Copyright 2018-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,37 +36,6 @@ func testDetect(t *testing.T, context spec.G, it spec.S) {
 
 	it("fails without service", func() {
 		Expect(detect.Detect(ctx)).To(Equal(libcnb.DetectResult{}))
-	})
-
-	it("passes with debugger service", func() {
-		ctx.Platform.Bindings = libcnb.Bindings{
-			libcnb.Binding{Name: "test-service", Type: "StackdriverDebugger"},
-		}
-
-		Expect(detect.Detect(ctx)).To(Equal(libcnb.DetectResult{
-			Pass: true,
-			Plans: []libcnb.BuildPlan{
-				{
-					Provides: []libcnb.BuildPlanProvide{
-						{Name: "google-stackdriver-debugger-java"},
-					},
-					Requires: []libcnb.BuildPlanRequire{
-						{Name: "google-stackdriver-debugger-java"},
-						{Name: "jvm-application"},
-					},
-				},
-				{
-					Provides: []libcnb.BuildPlanProvide{
-						{Name: "google-stackdriver-debugger-nodejs"},
-					},
-					Requires: []libcnb.BuildPlanRequire{
-						{Name: "google-stackdriver-debugger-nodejs"},
-						{Name: "node", Metadata: map[string]interface{}{"build": true}},
-						{Name: "node_modules"},
-					},
-				},
-			},
-		}))
 	})
 
 	it("passes with profiler service", func() {

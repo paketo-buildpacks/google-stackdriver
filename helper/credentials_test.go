@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2020 the original author or authors.
+ * Copyright 2018-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,21 +35,6 @@ func testCredentials(t *testing.T, context spec.G, it spec.S) {
 
 	it("does not contribute properties if no binding exists", func() {
 		Expect(c.Execute()).To(BeZero())
-	})
-
-	it("contributes credentials if debugger binding exists", func() {
-		c.Bindings = libcnb.Bindings{
-			{
-				Name:   "test-binding",
-				Path:   "/test/path/test-binding",
-				Type:   "StackdriverDebugger",
-				Secret: map[string]string{"ApplicationCredentials": "test-value"},
-			},
-		}
-
-		Expect(c.Execute()).To(Equal(map[string]string{
-			"GOOGLE_APPLICATION_CREDENTIALS": "/test/path/test-binding/ApplicationCredentials",
-		}))
 	})
 
 	it("contributes credentials if profiler binding exists", func() {

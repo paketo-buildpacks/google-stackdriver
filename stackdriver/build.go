@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2020 the original author or authors.
+ * Copyright 2018-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,36 +51,6 @@ func (b Build) Build(context libcnb.BuildContext) (libcnb.BuildResult, error) {
 	dc.Logger = b.Logger
 
 	names := []string{"credentials"}
-
-	if _, ok, err := pr.Resolve("google-stackdriver-debugger-java"); err != nil {
-		return libcnb.BuildResult{}, fmt.Errorf("unable to resolve google-stackdriver-debugger-java plan entry\n%w", err)
-	} else if ok {
-		dep, err := dr.Resolve("google-stackdriver-debugger-java", "")
-		if err != nil {
-			return libcnb.BuildResult{}, fmt.Errorf("unable to find dependency\n%w", err)
-		}
-
-		ja, be := NewJavaDebuggerAgent(dep, dc)
-		ja.Logger = b.Logger
-		result.Layers = append(result.Layers, ja)
-		result.BOM.Entries = append(result.BOM.Entries, be)
-
-		names = append(names, "java-debugger")
-	}
-
-	if _, ok, err := pr.Resolve("google-stackdriver-debugger-nodejs"); err != nil {
-		return libcnb.BuildResult{}, fmt.Errorf("unable to resolve google-stackdriver-debugger-nodejs plan entry\n%w", err)
-	} else if ok {
-		dep, err := dr.Resolve("google-stackdriver-debugger-nodejs", "")
-		if err != nil {
-			return libcnb.BuildResult{}, fmt.Errorf("unable to find dependency\n%w", err)
-		}
-
-		ja, be := NewNodeJSDebuggerAgent(context.Buildpack.Path, dep, dc)
-		ja.Logger = b.Logger
-		result.Layers = append(result.Layers, ja)
-		result.BOM.Entries = append(result.BOM.Entries, be)
-	}
 
 	if _, ok, err := pr.Resolve("google-stackdriver-profiler-java"); err != nil {
 		return libcnb.BuildResult{}, fmt.Errorf("unable to resolve google-stackdriver-profiler-java plan entry\n%w", err)

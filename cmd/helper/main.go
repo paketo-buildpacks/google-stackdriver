@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2020 the original author or authors.
+ * Copyright 2018-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,6 @@ func main() {
 			err error
 			l   = bard.NewLogger(os.Stdout)
 			c   = helper.Credentials{Logger: l}
-			d   = helper.JavaDebugger{Logger: l}
 			p   = helper.JavaProfiler{Logger: l}
 		)
 
@@ -44,7 +43,6 @@ func main() {
 
 		return sherpa.Helpers(map[string]sherpa.ExecD{
 			"credentials":   c,
-			"java-debugger": d,
 			"java-profiler": p,
 		})
 	})
