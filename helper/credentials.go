@@ -30,15 +30,6 @@ type Credentials struct {
 }
 
 func (c Credentials) Execute() (map[string]string, error) {
-	if b, ok, err := bindings.ResolveOne(c.Bindings, bindings.OfType("StackdriverDebugger")); err != nil {
-		return nil, fmt.Errorf("unable to resolve binding StackdriverDebugger\n%w", err)
-	} else if ok {
-		if p, ok := b.SecretFilePath("ApplicationCredentials"); ok {
-			c.Logger.Info("Configuring Google application credentials")
-			return map[string]string{"GOOGLE_APPLICATION_CREDENTIALS": p}, nil
-		}
-	}
-
 	if b, ok, err := bindings.ResolveOne(c.Bindings, bindings.OfType("StackdriverProfiler")); err != nil {
 		return nil, fmt.Errorf("unable to resolve binding StackdriverProfiler\n%w", err)
 	} else if ok {

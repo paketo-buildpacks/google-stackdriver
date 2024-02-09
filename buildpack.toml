@@ -1,4 +1,4 @@
-# Copyright 2018-2020 the original author or authors.
+# Copyright 2018-2024 the original author or authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -48,44 +48,12 @@ api = "0.7"
     name = "BPL_GOOGLE_STACKDRIVER_VERSION"
 
   [[metadata.dependencies]]
-    cpes = ["cpe:2.3:a:google:google-stackdriver-debugger-java:4.1.0:*:*:*:*:*:*:*"]
-    id = "google-stackdriver-debugger-java"
-    name = "Google Stackdriver Debugger Java Agent"
-    purl = "pkg:generic/google-stackdriver-debugger-java@4.1.0"
-    sha256 = "931e8d5301828bb3ee1ba5948308eb678f33aa148a5381768263ac9fa0fa6349"
-    source = "https://github.com/GoogleCloudPlatform/cloud-debug-java/archive/refs/tags/v4.1.tar.gz"
-    source-sha256 = "d676df0e195457797284cd2da8e450da54b030b70135e3157358feff7d1d1b88"
-    stacks = ["io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "*"]
-    uri = "https://github.com/GoogleCloudPlatform/cloud-debug-java/releases/download/v4.1/cdbg_java_agent_gce.tar.gz"
-    version = "4.1.0"
-
-    [[metadata.dependencies.licenses]]
-      type = "Apache-2.0"
-      uri = "https://github.com/GoogleCloudPlatform/cloud-debug-java/blob/master/LICENSE"
-
-  [[metadata.dependencies]]
-    cpes = ["cpe:2.3:a:google:google-stackdriver-debugger-nodejs:9.0.1:*:*:*:*:*:*:*"]
-    id = "google-stackdriver-debugger-nodejs"
-    name = "Google Stackdriver Debugger NodeJS Agent"
-    purl = "pkg:generic/google-stackdriver-debugger-nodejs@9.0.1"
-    sha256 = "826a0a542d6cd148458c01bdf1b297018a8203712609f7895d786228c77801c3"
-    source = "https://registry.npmjs.org/@google-cloud/debug-agent/-/debug-agent-9.0.1.tgz"
-    source-sha256 = "826a0a542d6cd148458c01bdf1b297018a8203712609f7895d786228c77801c3"
-    stacks = ["io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "*"]
-    uri = "https://registry.npmjs.org/@google-cloud/debug-agent/-/debug-agent-9.0.1.tgz"
-    version = "9.0.1"
-
-    [[metadata.dependencies.licenses]]
-      type = "Apache-2.0"
-      uri = "https://github.com/googleapis/cloud-debug-nodejs/blob/master/LICENSE"
-
-  [[metadata.dependencies]]
     cpes = ["cpe:2.3:a:google:google-stackdriver-profiler-java:2024.2.500:*:*:*:*:*:*:*"]
     id = "google-stackdriver-profiler-java"
     name = "Google Stackdriver Profiler Java Agent"
     purl = "pkg:generic/google-stackdriver-profiler-java@2024.2.500"
     sha256 = "bd266710d8af36ad127480ce21ef4d1e403e578f99af7e5de4c52b39e2d8f746"
-    stacks = ["io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "*"]
+    stacks = ["*"]
     uri = "https://storage.googleapis.com/cloud-profiler/java/cloud-profiler-java-agent_20240205_RC00.tar.gz"
     version = "2024.2.500"
 
@@ -101,19 +69,13 @@ api = "0.7"
     sha256 = "66261e02b7bb368265c260fa05d270c5e50459a8f191f6720666828878467a36"
     source = "https://registry.npmjs.org/@google-cloud/profiler/-/profiler-6.0.1.tgz"
     source-sha256 = "66261e02b7bb368265c260fa05d270c5e50459a8f191f6720666828878467a36"
-    stacks = ["io.buildpacks.stacks.bionic", "io.paketo.stacks.tiny", "*"]
+    stacks = ["*"]
     uri = "https://registry.npmjs.org/@google-cloud/profiler/-/profiler-6.0.1.tgz"
     version = "6.0.1"
 
     [[metadata.dependencies.licenses]]
       type = "Apache-2.0"
-      uri = "https://github.com/googleapis/cloud-debug-nodejs/blob/master/LICENSE"
-
-[[stacks]]
-  id = "io.buildpacks.stacks.bionic"
-
-[[stacks]]
-  id = "io.paketo.stacks.tiny"
+      uri = "https://github.com/googleapis/cloud-profiler-nodejs/blob/main/LICENSE"
 
 [[stacks]]
   id = "*"

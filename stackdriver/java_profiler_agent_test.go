@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2020 the original author or authors.
+ * Copyright 2018-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +17,6 @@
 package stackdriver_test
 
 import (
-	"io/ioutil"
-	"os"
 	"path/filepath"
 	"testing"
 
@@ -40,12 +38,8 @@ func testJavaProfilerAgent(t *testing.T, context spec.G, it spec.S) {
 	it.Before(func() {
 		var err error
 
-		ctx.Layers.Path, err = ioutil.TempDir("", "java-profiler-agent-layers")
+		ctx.Layers.Path = t.TempDir()
 		Expect(err).NotTo(HaveOccurred())
-	})
-
-	it.After(func() {
-		Expect(os.RemoveAll(ctx.Layers.Path)).To(Succeed())
 	})
 
 	it("contributes Java agent", func() {

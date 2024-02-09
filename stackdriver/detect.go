@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2020 the original author or authors.
+ * Copyright 2018-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,44 +20,16 @@ import (
 	"fmt"
 
 	"github.com/buildpacks/libcnb"
-	"github.com/paketo-buildpacks/libpak/bindings"
 	"github.com/paketo-buildpacks/libpak/bard"
+	"github.com/paketo-buildpacks/libpak/bindings"
 )
 
-type Detect struct{
+type Detect struct {
 	Logger bard.Logger
 }
 
 func (d Detect) Detect(context libcnb.DetectContext) (libcnb.DetectResult, error) {
 	result := libcnb.DetectResult{Pass: false}
-
-	if _, ok, err := bindings.ResolveOne(context.Platform.Bindings, bindings.OfType("StackdriverDebugger")); err != nil {
-		return libcnb.DetectResult{}, fmt.Errorf("unable to resolve binding StackdriverDebugger\n%w", err)
-	} else if ok {
-		result.Pass = true
-		result.Plans = append(result.Plans,
-			libcnb.BuildPlan{
-				Provides: []libcnb.BuildPlanProvide{
-					{Name: "google-stackdriver-debugger-java"},
-				},
-				Requires: []libcnb.BuildPlanRequire{
-					{Name: "google-stackdriver-debugger-java"},
-					{Name: "jvm-application"},
-				},
-			},
-			libcnb.BuildPlan{
-				Provides: []libcnb.BuildPlanProvide{
-					{Name: "google-stackdriver-debugger-nodejs"},
-				},
-				Requires: []libcnb.BuildPlanRequire{
-					{Name: "google-stackdriver-debugger-nodejs"},
-					{Name: "node", Metadata: map[string]interface{}{"build": true}},
-					{Name: "node_modules"},
-				},
-			},
-		)
-		d.Logger.Info("PASSED: binding of type 'StackdriverDebugger' found")
-	}
 
 	if _, ok, err := bindings.ResolveOne(context.Platform.Bindings, bindings.OfType("StackdriverProfiler")); err != nil {
 		return libcnb.DetectResult{}, fmt.Errorf("unable to resolve binding StackdriverProfiler\n%w", err)
@@ -87,8 +59,8 @@ func (d Detect) Detect(context libcnb.DetectContext) (libcnb.DetectResult, error
 		d.Logger.Info("PASSED: binding of type 'StackdriverProfiler' found")
 	}
 
-	if result.Pass != true {
-		d.Logger.Info("SKIPPED: no bindings of type 'StackdriverDebugger' or 'StackdriverProfiler' found")
+	if !result.Pass {
+		d.Logger.Info("SKIPPED: no bindings of type 'StackdriverProfiler' found")
 	}
 	return result, nil
 }

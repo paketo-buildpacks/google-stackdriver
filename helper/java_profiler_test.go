@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2020 the original author or authors.
+ * Copyright 2018-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@
 package helper_test
 
 import (
-	"os"
 	"testing"
 
 	. "github.com/onsi/gomega"
@@ -41,11 +40,7 @@ func testJavaProfiler(t *testing.T, context spec.G, it spec.S) {
 	context("$BPI_GOOGLE_STACKDRIVER_PROFILER_JAVA_AGENT_PATH", func() {
 
 		it.Before(func() {
-			Expect(os.Setenv("BPI_GOOGLE_STACKDRIVER_PROFILER_JAVA_AGENT_PATH", "test-path")).To(Succeed())
-		})
-
-		it.After(func() {
-			Expect(os.Unsetenv("BPI_GOOGLE_STACKDRIVER_PROFILER_JAVA_AGENT_PATH")).To(Succeed())
+			t.Setenv("BPI_GOOGLE_STACKDRIVER_PROFILER_JAVA_AGENT_PATH", "test-path")
 		})
 
 		it("uses defaults", func() {
@@ -56,11 +51,7 @@ func testJavaProfiler(t *testing.T, context spec.G, it spec.S) {
 
 		context("$BPL_GOOGLE_STACKDRIVER_MODULE", func() {
 			it.Before(func() {
-				Expect(os.Setenv("BPL_GOOGLE_STACKDRIVER_MODULE", "test-module")).To(Succeed())
-			})
-
-			it.After(func() {
-				Expect(os.Unsetenv("BPL_GOOGLE_STACKDRIVER_MODULE")).To(Succeed())
+				t.Setenv("BPL_GOOGLE_STACKDRIVER_MODULE", "test-module")
 			})
 
 			it("uses configured module", func() {
@@ -72,11 +63,7 @@ func testJavaProfiler(t *testing.T, context spec.G, it spec.S) {
 
 		context("$BPL_GOOGLE_STACKDRIVER_VERSION", func() {
 			it.Before(func() {
-				Expect(os.Setenv("BPL_GOOGLE_STACKDRIVER_VERSION", "test-version")).To(Succeed())
-			})
-
-			it.After(func() {
-				Expect(os.Unsetenv("BPL_GOOGLE_STACKDRIVER_VERSION")).To(Succeed())
+				t.Setenv("BPL_GOOGLE_STACKDRIVER_VERSION", "test-version")
 			})
 
 			it("uses configured version", func() {
@@ -88,11 +75,7 @@ func testJavaProfiler(t *testing.T, context spec.G, it spec.S) {
 
 		context("$JAVA_TOOL_OPTIONS", func() {
 			it.Before(func() {
-				Expect(os.Setenv("JAVA_TOOL_OPTIONS", "test-java-tool-options")).To(Succeed())
-			})
-
-			it.After(func() {
-				Expect(os.Unsetenv("JAVA_TOOL_OPTIONS")).To(Succeed())
+				t.Setenv("JAVA_TOOL_OPTIONS", "test-java-tool-options")
 			})
 
 			it("uses configured JAVA_TOOL_OPTIONS", func() {
