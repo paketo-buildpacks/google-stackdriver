@@ -48,14 +48,14 @@ api = "0.7"
     name = "BPL_GOOGLE_STACKDRIVER_VERSION"
 
   [[metadata.dependencies]]
-    cpes = ["cpe:2.3:a:google:google-stackdriver-profiler-java:2024.2.500:*:*:*:*:*:*:*"]
+    cpes = ["cpe:2.3:a:google:google-stackdriver-profiler-java:2024.2.1500:*:*:*:*:*:*:*"]
     id = "google-stackdriver-profiler-java"
     name = "Google Stackdriver Profiler Java Agent"
-    purl = "pkg:generic/google-stackdriver-profiler-java@2024.2.500"
-    sha256 = "bd266710d8af36ad127480ce21ef4d1e403e578f99af7e5de4c52b39e2d8f746"
+    purl = "pkg:generic/google-stackdriver-profiler-java@2024.2.1500"
+    sha256 = "01745089f96a1d99b1b10ef3dc4fc476195dda489712d80a5bd571989bd96074"
     stacks = ["*"]
-    uri = "https://storage.googleapis.com/cloud-profiler/java/cloud-profiler-java-agent_20240205_RC00.tar.gz"
-    version = "2024.2.500"
+    uri = "https://storage.googleapis.com/cloud-profiler/java/cloud-profiler-java-agent_20240215_RC00.tar.gz"
+    version = "2024.2.1500"
 
     [[metadata.dependencies.licenses]]
       type = "Apache-2.0"
