@@ -1,10 +1,10 @@
 module github.com/paketo-buildpacks/google-stackdriver/v5
 
-go 1.20
+go 1.22
 
 require (
 	github.com/buildpacks/libcnb v1.30.3
-	github.com/onsi/gomega v1.33.1
+	github.com/onsi/gomega v1.34.0
 	github.com/paketo-buildpacks/libpak v1.70.0
 	github.com/sclevine/spec v1.4.0
 	github.com/stretchr/testify v1.9.0
