@@ -1,6 +1,6 @@
 module github.com/paketo-buildpacks/google-stackdriver/v5
 
-go 1.22
+go 1.20
 
 require (
 	github.com/buildpacks/libcnb v1.30.3
