@@ -20,6 +20,10 @@ The buildpack will do the following for NodeJS applications:
   * If main module does not already require `@google-cloud/profiler` module, prepends the main module with `require('@google-cloud/profiler').start();`
 * Sets `$GOOGLE_APPLICATION_CREDENTIALS` to the path of the `ApplicationCredentials` secret
 
+## Notes
+
+While this buildpack is packaged to support ARM64 there are no upstream bindings for Aternity on ARM64. If you try to use this buildpack on ARM64 it will fail attempting to download ARM64 binaries that do not exist. Please contact the vendor if you'd like to see ARM64 support. The buildpack is positioned to support it as soon as it is available upstream.
+
 ## Configuration
 
 | Environment Variable                 | Description                                                           |
