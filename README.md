@@ -1,4 +1,7 @@
-# `gcr.io/paketo-buildpacks/google-stackdriver`
+# Paketo Buildpack for Google StackDriver
+
+## Buildpack ID: `paketo-buildpacks/google-stackdriver`
+## Registry URLs: `docker.io/paketobuildpacks/google-stackdriver`
 
 The Paketo Buildpack for Google Stackdriver is a Cloud Native Buildpack that contributes Stackdriver profiler agent and configure it to connect to the service.
 
