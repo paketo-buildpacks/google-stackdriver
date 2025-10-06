@@ -28,6 +28,5 @@ func TestUnit(t *testing.T) {
 	suite("Build", testBuild)
 	suite("Detect", testDetect)
 	suite("JavaProfilerAgent", testJavaProfilerAgent)
-	suite("NodeJSProfileAgent", testNodeJSProfilerAgent)
 	suite.Run(t)
 }

@@ -34,6 +34,10 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 		ctx libcnb.BuildContext
 	)
 
+	it.Before(func() {
+		t.Setenv("BP_ARCH", "amd64")
+	})
+
 	it("contributes Java profiler agent", func() {
 		ctx.Plan.Entries = append(ctx.Plan.Entries, libcnb.BuildpackPlanEntry{Name: "google-stackdriver-profiler-java"})
 		ctx.Buildpack.Metadata = map[string]interface{}{
@@ -60,35 +64,6 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 
 		Expect(len(result.BOM.Entries)).To(Equal(2))
 		Expect(result.BOM.Entries[0].Name).To(Equal("google-stackdriver-profiler-java"))
-		Expect(result.BOM.Entries[1].Name).To(Equal("helper"))
-	})
-
-	it("contributes NodeJS profiler agent", func() {
-		ctx.Plan.Entries = append(ctx.Plan.Entries, libcnb.BuildpackPlanEntry{Name: "google-stackdriver-profiler-nodejs"})
-		ctx.Buildpack.Metadata = map[string]interface{}{
-			"dependencies": []map[string]interface{}{
-				{
-					"id":      "google-stackdriver-profiler-nodejs",
-					"version": "1.1.1",
-					"stacks":  []interface{}{"test-stack-id"},
-					"cpes":    []string{"cpe:2.3:a:google:google-stackdriver-profiler-nodejs:1.1.0:*:*:*:*:*:*:*"},
-					"purl":    "pkg:generic/google-stackdriver-profiler-nodejs@2021.11.1500",
-				},
-			},
-		}
-		ctx.StackID = "test-stack-id"
-		ctx.Buildpack.API = "0.7"
-
-		result, err := stackdriver.Build{}.Build(ctx)
-		Expect(err).NotTo(HaveOccurred())
-
-		Expect(result.Layers).To(HaveLen(2))
-		Expect(result.Layers[0].Name()).To(Equal("google-stackdriver-profiler-nodejs"))
-		Expect(result.Layers[1].Name()).To(Equal("helper"))
-		Expect(result.Layers[1].(libpak.HelperLayerContributor).Names).To(Equal([]string{"credentials"}))
-
-		Expect(len(result.BOM.Entries)).To(Equal(2))
-		Expect(result.BOM.Entries[0].Name).To(Equal("google-stackdriver-profiler-nodejs"))
 		Expect(result.BOM.Entries[1].Name).To(Equal("helper"))
 	})
 }

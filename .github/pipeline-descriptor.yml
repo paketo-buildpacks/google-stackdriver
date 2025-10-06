@@ -22,7 +22,3 @@ docker_credentials:
 dependencies:
 - id:   google-stackdriver-profiler-java
   uses: docker://ghcr.io/paketo-buildpacks/actions/google-stackdriver-profiler-dependency:main
-- id:   google-stackdriver-profiler-nodejs
-  uses: docker://ghcr.io/paketo-buildpacks/actions/npm-dependency:main
-  with:
-    package: "@google-cloud/profiler"

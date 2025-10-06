@@ -68,20 +68,6 @@ func (b Build) Build(context libcnb.BuildContext) (libcnb.BuildResult, error) {
 		names = append(names, "java-profiler")
 	}
 
-	if _, ok, err := pr.Resolve("google-stackdriver-profiler-nodejs"); err != nil {
-		return libcnb.BuildResult{}, fmt.Errorf("unable to resolve google-stackdriver-profiler-nodejs plan entry\n%w", err)
-	} else if ok {
-		dep, err := dr.Resolve("google-stackdriver-profiler-nodejs", "")
-		if err != nil {
-			return libcnb.BuildResult{}, fmt.Errorf("unable to find dependency\n%w", err)
-		}
-
-		ja, be := NewNodeJSProfilerAgent(context.Buildpack.Path, dep, dc)
-		ja.Logger = b.Logger
-		result.Layers = append(result.Layers, ja)
-		result.BOM.Entries = append(result.BOM.Entries, be)
-	}
-
 	h, be := libpak.NewHelperLayer(context.Buildpack, names...)
 	h.Logger = b.Logger
 	result.Layers = append(result.Layers, h)
