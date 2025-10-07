@@ -55,16 +55,6 @@ func testDetect(t *testing.T, context spec.G, it spec.S) {
 						{Name: "jvm-application"},
 					},
 				},
-				{
-					Provides: []libcnb.BuildPlanProvide{
-						{Name: "google-stackdriver-profiler-nodejs"},
-					},
-					Requires: []libcnb.BuildPlanRequire{
-						{Name: "google-stackdriver-profiler-nodejs"},
-						{Name: "node", Metadata: map[string]interface{}{"build": true}},
-						{Name: "node_modules"},
-					},
-				},
 			},
 		}))
 	})

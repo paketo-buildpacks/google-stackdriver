@@ -1,4 +1,4 @@
-# Copyright 2018-2024 the original author or authors.
+# Copyright 2018-2025 the original author or authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ api = "0.7"
   description = "A Cloud Native Buildpack that contributes Stackdriver agents and configures them to connect to the service"
   homepage = "https://github.com/paketo-buildpacks/google-stackdriver"
   id = "paketo-buildpacks/google-stackdriver"
-  keywords = ["java", "node.js", "google-stackdriver"]
+  keywords = ["java", "google-stackdriver"]
   name = "Paketo Buildpack for Google Stackdriver"
   sbom-formats = ["application/vnd.cyclonedx+json", "application/vnd.syft+json"]
   version = "{{.version}}"
@@ -60,22 +60,6 @@ api = "0.7"
     [[metadata.dependencies.licenses]]
       type = "Apache-2.0"
       uri = "https://github.com/GoogleCloudPlatform/cloud-profiler-java/blob/master/LICENSE"
-
-  [[metadata.dependencies]]
-    cpes = ["cpe:2.3:a:google:google-stackdriver-profiler-nodejs:6.0.3:*:*:*:*:*:*:*"]
-    id = "google-stackdriver-profiler-nodejs"
-    name = "Google Stackdriver Profiler NodeJS Agent"
-    purl = "pkg:generic/google-stackdriver-profiler-nodejs@6.0.3"
-    sha256 = "26f29edb341633f1ac90a1b67b6bea84a35513fcae4c5c7dbe9f5309ce541f61"
-    source = "https://registry.npmjs.org/@google-cloud/profiler/-/profiler-6.0.3.tgz"
-    source-sha256 = "26f29edb341633f1ac90a1b67b6bea84a35513fcae4c5c7dbe9f5309ce541f61"
-    stacks = ["*"]
-    uri = "https://registry.npmjs.org/@google-cloud/profiler/-/profiler-6.0.3.tgz"
-    version = "6.0.3"
-
-    [[metadata.dependencies.licenses]]
-      type = "Apache-2.0"
-      uri = "https://github.com/googleapis/cloud-profiler-nodejs/blob/main/LICENSE"
 
 [[stacks]]
   id = "*"

@@ -45,16 +45,6 @@ func (d Detect) Detect(context libcnb.DetectContext) (libcnb.DetectResult, error
 					{Name: "jvm-application"},
 				},
 			},
-			libcnb.BuildPlan{
-				Provides: []libcnb.BuildPlanProvide{
-					{Name: "google-stackdriver-profiler-nodejs"},
-				},
-				Requires: []libcnb.BuildPlanRequire{
-					{Name: "google-stackdriver-profiler-nodejs"},
-					{Name: "node", Metadata: map[string]interface{}{"build": true}},
-					{Name: "node_modules"},
-				},
-			},
 		)
 		d.Logger.Info("PASSED: binding of type 'StackdriverProfiler' found")
 	}
