@@ -62,8 +62,8 @@ func testBuild(t *testing.T, context spec.G, it spec.S) {
 		Expect(result.Layers[1].Name()).To(Equal("helper"))
 		Expect(result.Layers[1].(libpak.HelperLayerContributor).Names).To(Equal([]string{"credentials", "java-profiler"}))
 
-		Expect(len(result.BOM.Entries)).To(Equal(2))
-		Expect(result.BOM.Entries[0].Name).To(Equal("google-stackdriver-profiler-java"))
-		Expect(result.BOM.Entries[1].Name).To(Equal("helper"))
+		Expect(len(result.BOM.Entries)).To(Equal(2))                                     //nolint:staticcheck // hold off on the BOM migration for now
+		Expect(result.BOM.Entries[0].Name).To(Equal("google-stackdriver-profiler-java")) //nolint:staticcheck // hold off on the BOM migration for now
+		Expect(result.BOM.Entries[1].Name).To(Equal("helper"))                           //nolint:staticcheck // hold off on the BOM migration for now
 	})
 }

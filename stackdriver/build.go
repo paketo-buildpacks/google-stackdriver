@@ -63,15 +63,15 @@ func (b Build) Build(context libcnb.BuildContext) (libcnb.BuildResult, error) {
 		ja, be := NewJavaProfilerAgent(dep, dc)
 		ja.Logger = b.Logger
 		result.Layers = append(result.Layers, ja)
-		result.BOM.Entries = append(result.BOM.Entries, be)
+		result.BOM.Entries = append(result.BOM.Entries, be) //nolint:staticcheck // hold off on the BOM migration for now
 
 		names = append(names, "java-profiler")
 	}
 
-	h, be := libpak.NewHelperLayer(context.Buildpack, names...)
+	h, be := libpak.NewHelperLayer(context.Buildpack, names...) //nolint:staticcheck // hold off on the BOM migration for now
 	h.Logger = b.Logger
 	result.Layers = append(result.Layers, h)
-	result.BOM.Entries = append(result.BOM.Entries, be)
+	result.BOM.Entries = append(result.BOM.Entries, be) //nolint:staticcheck // hold off on the BOM migration for now
 
 	return result, nil
 }
